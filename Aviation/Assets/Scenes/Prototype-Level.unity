@@ -212,6 +212,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 604014851}
   playerrb: {fileID: 604014856}
+  xAngle: 0
+  yAngle: 0
+  zAngle: 0
 --- !u!54 &604014856
 Rigidbody:
   m_ObjectHideFlags: 0
