@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PlayerBehaviourScript : MonoBehaviour
 {
-    readonly float inputFactor = 20;
+    [SerializeField] private float inputFactor = 20;
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody playerrb;
-    public float xAngle, yAngle, zAngle;
+    [SerializeField] private bool Rotation;
+    [SerializeField] private Transform FirePoint_1;
+    [SerializeField] private Transform FirePoint_2;
+    [SerializeField] private GameObject PlayerGunPrefab;
+    [SerializeField] float playerbulletForce = 20f;
+    private GameObject LeftGun;
+    private GameObject RightGun;
 
     // Start is called before the first frame update
     void Start()
@@ -19,29 +25,40 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Eingabe speichern
+        // Input is saved
         float xInput = Input.GetAxis("Horizontal");
         float zInput = Input.GetAxis("Vertical");
 
-        // Neue Position bestimmen
+        // New position is calculated
         float xNew = transform.position.x + xInput * inputFactor * Time.deltaTime;
         float zNew = transform.position.z + zInput * inputFactor * Time.deltaTime;
         transform.position = new Vector3(xNew, 1, zNew);
         
-        // Objekt bleibt im Kamerabild
+        // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         pos.x = Mathf.Clamp01(pos.x);
         pos.y = Mathf.Clamp01(pos.y);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
-        // Player dreht sich bei Steuerung
-        if(xInput < 0)
+        // Player rotates when moving on the x axis
+        float rotationOnZ = 2 * Mathf.Pow(inputFactor, 2) * 360 * -xInput;
+        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -xInput;
+        if (Rotation) transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotationOnZ);
+
+        // Player can shoot
+        if (Input.GetButtonDown("Fire1"))
         {
-            transform.Rotate(0, 0, 50 * Time.deltaTime, Space.Self);
+            Shoot();
         }
-        else if (xInput > 0)
+
+        void Shoot()
         {
-            transform.Rotate(0, 0, -50 * Time.deltaTime, Space.Self);
+            LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
+            RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
+            Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
+            Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
+            bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
+            bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
         }
     }
 }
