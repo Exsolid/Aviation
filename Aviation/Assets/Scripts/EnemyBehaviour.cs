@@ -9,7 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float minDistanceToPlayer;
     [SerializeField] private bool enableRotationOnMove;
-    [SerializeField] private Rigidbody rb;
+    private Rigidbody rb;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
     private float xDistanceToPlayer;
@@ -34,35 +34,36 @@ public class EnemyBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Camera.main.transform.position.z + maxDisplayHeightAtGameplay > transform.position.z) {
+        if (Camera.main.transform.position.z + maxDisplayHeightAtGameplay > transform.position.z)
+        {
             xDistanceToPlayer = player.transform.position.x - transform.position.x;
             zDistanceToPlayer = player.transform.position.z - transform.position.z;
             //Creates a raycast (detecting line) that fills 'hit' if it collides with a collider
-            Physics.Raycast(gunPosOne.position, transform.TransformDirection(Vector3.forward), out hit, maxDisplayHeightAtGameplay);
+            Physics.Raycast(gunPosTwo.position, Vector3.forward, out hit, maxDisplayHeightAtGameplay);
             shootTimer += Time.deltaTime;
-            move();
             shoot();
+            move();
         }
         else
         {
             //Delete object if out of vision
             GameObject.Destroy(gameObject);
         }
-      
+
     }
 
     private void move()
     {
         //               speed * function that returns 0-1 based on the distance to the player                                  * direction to move * framerate edit
-        float speedOnY = speed * 4f * Mathf.Pow(((xDistanceToPlayer + 15 * getDirectionOnX()) / maxDisplayWidthAtGameplay), 2) * getDirectionOnX() * Time.deltaTime;
+        float speedOnY = speed * 4f * Mathf.Pow(((xDistanceToPlayer + 2 * getDirectionOnX()) / maxDisplayWidthAtGameplay), 2) * getDirectionOnX() * Time.deltaTime;
         //               speed * function that returns 0-1 based on the distance to the player                                  * direction to move * framerate edit
-        float speedOnZ = speed * Mathf.Pow((zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2)  * Time.deltaTime;
+        float speedOnZ = speed * Mathf.Pow((zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2) * Time.deltaTime;
         //Cap speed because zDistanceToPlayer (zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay can return big numbers if player to enemy distance gets big
         if (speedOnZ > speed / 50) speedOnZ = speed / 50;
         rb.velocity = new Vector3(speedOnY, 0, speedOnZ);
 
         //                function that returns 0-1 based on the distance to the player 
-        float rotationOnZ = 2*Mathf.Pow((xDistanceToPlayer / maxDisplayWidthAtGameplay),2) * 360 * -getDirectionOnX();
+        float rotationOnZ = 3 * Mathf.Pow((xDistanceToPlayer / maxDisplayWidthAtGameplay), 2) * 360 * -getDirectionOnX();
         if (Mathf.Abs(rotationOnZ) > 45) rotationOnZ = 45 * -getDirectionOnX();
         if (enableRotationOnMove) transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotationOnZ);
     }
@@ -80,7 +81,7 @@ public class EnemyBehaviour : MonoBehaviour
                 BulletBehaviour behaviour = bullet.GetComponent<BulletBehaviour>();
                 behaviour.Speed += behaviour.Speed + speed * Mathf.Pow((zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2) * Time.deltaTime;
             }
-            if(gunPosTwo != null && bulletPrefab != null)
+            if (gunPosTwo != null && bulletPrefab != null)
             {
                 //Create bullet and add the planes speed to the bullet speed
                 GameObject bullet = GameObject.Instantiate(bulletPrefab, gunPosTwo.transform.position, Quaternion.Euler(0, 0, 0));

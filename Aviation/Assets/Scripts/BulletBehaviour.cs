@@ -18,7 +18,7 @@ public class BulletBehaviour : MonoBehaviour
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y - transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
-        rb.velocity = new Vector3(0, 0, 10);
+        rb.velocity = new Vector3(0, 0, speed);
     }
 
     // Update is called once per frame
