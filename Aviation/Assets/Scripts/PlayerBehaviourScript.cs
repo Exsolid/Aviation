@@ -35,6 +35,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         currentFuel = maxFuel;
         fuel.SetMaxFuel(maxFuel);
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
+        Rotation = true;
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         // New position is calculated
         float xNew = transform.position.x + xInput * inputFactor * Time.deltaTime;
         float zNew = transform.position.z + zInput * inputFactor * Time.deltaTime;
-        transform.position = new Vector3(xNew, 10, zNew);
+        transform.position = new Vector3(xNew, transform.position.y, zNew);
         
         // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -67,22 +68,31 @@ public class PlayerBehaviourScript : MonoBehaviour
             Shoot();
         }
 
-        void Shoot()
-        {
-            LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
-            RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
-            Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
-            Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
-            bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
-            bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
-        }
-
         //FuelConsumption takes effect when time has passed
         if (timeForFuelLoss <= Time.time)
         {
-            FuelConsumption(0.5f);
+            FuelConsumption(1f);
             timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         }
+
+        //Player descends when HP or Fuel reaches 0
+        if (currentFuel <= 0 || currentHealth <= 0)
+        {
+            float yNew = transform.position.y - 10 * Time.deltaTime;
+            transform.position = new Vector3(xNew, yNew, zNew);
+            Rotation = false;
+            transform.Rotate(20 * Time.deltaTime, 0, 50 * Time.deltaTime, Space.Self);
+        }
+    }
+
+    void Shoot()
+    {
+        LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
+        RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
+        Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
+        Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
+        bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
+        bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
     }
 
     void FuelConsumption(float loss)
