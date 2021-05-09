@@ -149,6 +149,13 @@ MonoBehaviour:
   FirePoint_2: {fileID: 0}
   PlayerGunPrefab: {fileID: 0}
   playerbulletForce: 20
+  maxHealth: 20
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  maxFuel: 20
+  currentFuel: 0
+  fuel: {fileID: 0}
+  timeBetweenFuelLoss: 3
 --- !u!54 &61594055
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -576,6 +583,7 @@ GameObject:
   - component: {fileID: 1505150730}
   - component: {fileID: 1505150729}
   - component: {fileID: 1505150728}
+  - component: {fileID: 1505150731}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -648,6 +656,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1505150731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505150727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4728429db88351347a8de558c9d74749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 5da71fca2479bdc479d2ef355eefefbe, type: 2}
 --- !u!1 &2064440472
 GameObject:
   m_ObjectHideFlags: 0
