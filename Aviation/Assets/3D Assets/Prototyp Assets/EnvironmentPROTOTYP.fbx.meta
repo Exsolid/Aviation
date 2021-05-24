@@ -2,13 +2,7 @@ fileFormatVersion: 2
 guid: 9659ffc0e9000834687c126faf19b080
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable:
-  - first:
-      74: -6604066634728755256
-    second: Terrain|BezierCircleAction
-  - first:
-      74: -9012804025040269775
-    second: Terrain|TerrainAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
