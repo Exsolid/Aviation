@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3474f76660e3fe1448bccf51064f17d1, type: 3}
+  m_Name: PostProcessTest01
+  m_EditorClassIdentifier: 
+  loFiShadeEffect: 1
+  loFiShadeOffset: 3
+  loFiShadeThreshold1: 0.76
+  loFiShadeThreshold2: 0.687
+  loFiShadeThreshold3: 0.373
+  loFiShadeThreshold4: 0.185
+  colorCrushEffect: 0
+  colorCrushTexture: {fileID: 2800000, guid: 4f79f4dd46cbe0040a517227c37a5fb8, type: 3}
+  outlineStyle: 2
+  outlineEffect: 0
+  outlineNormalSensitivity: 0.53
+  outlineDepthSensitivity: 0.9
+  outlineMinDistance: 0.528738
+  outlineMaxDistance: 1.16
+  sketchEffect: 1
+  sketchMultiEffect: 0
+  sketchAngles: 6
+  sketchSamples: 9
+  sketchSharpness: 1
+  sketchDetail: 1
+  sketchWeight: 0.586
+  canvasEffect: 1
+  canvasTexture: {fileID: 2800000, guid: f1265c6983c4ded4eb14ca3522c25eea, type: 3}
+  canvasWeight: 0.023
+  canvasJitterSpeed: 0.765
+  colorAmount: 0.875
+  loFiAmount: 0.112
+  outlineAmount: 0.556
+  canvasAmount: 1
