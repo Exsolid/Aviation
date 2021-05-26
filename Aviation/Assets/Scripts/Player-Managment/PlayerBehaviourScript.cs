@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBehaviourScript : MonoBehaviour
 {
-    [SerializeField] private float inputFactor = 20;
+    [SerializeField] private float movementSpeed = 20;
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody playerrb;
     [SerializeField] private bool Rotation;
@@ -24,6 +24,11 @@ public class PlayerBehaviourScript : MonoBehaviour
     private float timeForFuelLoss;
     private float lockPos = 0;
 
+    private Controls controls = null;
+    private void Awake() => controls = new Controls();
+    private void OnEnable() => controls.Player.Enable();
+    private void OnDisable() => controls.Player.Disable();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,14 +46,14 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         // Input is saved
         float xInput = Input.GetAxis("Horizontal");
         float zInput = Input.GetAxis("Vertical");
 
         // New position is calculated
-        float xNew = transform.position.x + xInput * inputFactor * Time.deltaTime;
-        float zNew = transform.position.z + zInput * inputFactor * Time.deltaTime;
+        float xNew = transform.position.x + xInput * movementSpeed * Time.deltaTime;
+        float zNew = transform.position.z + zInput * movementSpeed * Time.deltaTime;
         transform.position = new Vector3(xNew, transform.position.y, zNew);
         
         // Player can't leave camera view
@@ -58,7 +63,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
         // Player rotates on Z axis when moving on the X axis
-        float rotationOnZ = 2 * Mathf.Pow(inputFactor, 2) * 360 * -xInput;
+        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -xInput;
         if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -xInput;
         if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
 
@@ -85,7 +90,22 @@ public class PlayerBehaviourScript : MonoBehaviour
         }
     }
 
-    void Shoot()
+    void Move()
+    {
+        var movementInput = controls.Player.Movement.ReadValue<Vector2>();
+
+        var movement = new Vector3
+        {
+            x = movementInput.x,
+            z = movementInput.y
+        };
+        movement.Normalize();
+        
+        transform.Translate(movementSpeed * Time.deltaTime * movement);
+        
+    }
+
+    public void Shoot()
     {
         LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
         RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
