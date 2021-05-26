@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour : MonoBehaviour
+public class StaticObjectBehaviour : MonoBehaviour
 {
     public float Speed
     {

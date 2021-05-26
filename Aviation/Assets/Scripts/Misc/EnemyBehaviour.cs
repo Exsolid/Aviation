@@ -22,11 +22,17 @@ public class EnemyBehaviour : MonoBehaviour
     private float shootTimer;
     private RaycastHit hit;
 
+    public GameObject Player
+    {
+        set{ player = value; }
+    }
+
     void Start()
     {
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x,0, gameObject.transform.position.z);
         speed = Mathf.Abs(speed);
         //Get height and width of the gameplay area (camera view bounds at depth)
-        maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y - player.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
@@ -34,8 +40,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Camera.main.transform.position.z + maxDisplayHeightAtGameplay > transform.position.z)
-        {
             xDistanceToPlayer = player.transform.position.x - transform.position.x;
             zDistanceToPlayer = player.transform.position.z - transform.position.z;
             //Creates a raycast (detecting line) that fills 'hit' if it collides with a collider
@@ -43,13 +47,6 @@ public class EnemyBehaviour : MonoBehaviour
             shootTimer += Time.deltaTime;
             shoot();
             move();
-        }
-        else
-        {
-            //Delete object if out of vision
-            GameObject.Destroy(gameObject);
-        }
-
     }
 
     private void move()
@@ -78,14 +75,14 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 //Create bullet and add the planes speed to the bullet speed
                 GameObject bullet = GameObject.Instantiate(bulletPrefab, gunPosOne.transform.position, Quaternion.Euler(0, 0, 0));
-                BulletBehaviour behaviour = bullet.GetComponent<BulletBehaviour>();
+                StaticObjectBehaviour behaviour = bullet.GetComponent<StaticObjectBehaviour>();
                 behaviour.Speed += behaviour.Speed + speed * Mathf.Pow((zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2) * Time.deltaTime;
             }
             if (gunPosTwo != null && bulletPrefab != null)
             {
                 //Create bullet and add the planes speed to the bullet speed
                 GameObject bullet = GameObject.Instantiate(bulletPrefab, gunPosTwo.transform.position, Quaternion.Euler(0, 0, 0));
-                BulletBehaviour behaviour = bullet.GetComponent<BulletBehaviour>();
+                StaticObjectBehaviour behaviour = bullet.GetComponent<StaticObjectBehaviour>();
                 behaviour.Speed += speed * Mathf.Pow((zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2) * Time.deltaTime;
             }
         }
@@ -97,5 +94,9 @@ public class EnemyBehaviour : MonoBehaviour
         if (player.transform.position.x - transform.position.x > 0.1) return 1;
         else if (player.transform.position.x - transform.position.x < -0.1) return -1;
         else return 0;
+    }
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }
