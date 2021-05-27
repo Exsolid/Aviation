@@ -22,7 +22,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     public Fuel fuel;
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
-    private float lockPos = 0;
+    private float lockPos = 0f;
 
     private Controls controls = null;
     private void Awake() => controls = new Controls();
@@ -46,15 +46,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        // Input is saved
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
-
-        // New position is calculated
-        float xNew = transform.position.x + xInput * movementSpeed * Time.deltaTime;
-        float zNew = transform.position.z + zInput * movementSpeed * Time.deltaTime;
-        transform.position = new Vector3(xNew, transform.position.y, zNew);
+        Move();
         
         // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -62,10 +54,10 @@ public class PlayerBehaviourScript : MonoBehaviour
         pos.y = Mathf.Clamp01(pos.y);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
-        // Player rotates on Z axis when moving on the X axis
+        /*// Player rotates on Z axis when moving on the X axis
         float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -xInput;
         if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -xInput;
-        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
+        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);*/
 
         // Player can shoot
         if (Input.GetButtonDown("Fire1"))
@@ -79,18 +71,9 @@ public class PlayerBehaviourScript : MonoBehaviour
             FuelConsumption(1f);
             timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         }
-
-        //Player descends when HP or Fuel reaches 0
-        if (currentFuel <= 0 || currentHealth <= 0)
-        {
-            float yNew = transform.position.y - 10 * Time.deltaTime;
-            transform.position = new Vector3(xNew, yNew, zNew);
-            Rotation = false;
-            transform.Rotate(20 * Time.deltaTime, 0, 50 * Time.deltaTime, Space.Self);
-        }
     }
 
-    void Move()
+    public void Move()
     {
         var movementInput = controls.Player.Movement.ReadValue<Vector2>();
 
@@ -98,8 +81,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         {
             x = movementInput.x,
             z = movementInput.y
-        };
-        movement.Normalize();
+        }.normalized;
         
         transform.Translate(movementSpeed * Time.deltaTime * movement);
         
