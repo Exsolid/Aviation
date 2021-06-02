@@ -7,11 +7,11 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField] private float movementSpeed = 20;
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody playerrb;
-    [SerializeField] private bool Rotation;
     [SerializeField] private Transform FirePoint_1;
     [SerializeField] private Transform FirePoint_2;
     [SerializeField] private GameObject PlayerGunPrefab;
     [SerializeField] float playerbulletForce = 20f;
+    private bool Rotation;
     private GameObject LeftGun;
     private GameObject RightGun;
     public int maxHealth = 20;
@@ -22,7 +22,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     public Fuel fuel;
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
-    private float lockPos = 0f;
+    private readonly float lockPos = 0f;
 
     private Controls controls = null;
     private void Awake() => controls = new Controls();
@@ -47,17 +47,15 @@ public class PlayerBehaviourScript : MonoBehaviour
     void Update()
     {
         Move();
+        ZRotation();
+
+        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
         
         // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         pos.x = Mathf.Clamp01(pos.x);
         pos.y = Mathf.Clamp01(pos.y);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
-
-        /*// Player rotates on Z axis when moving on the X axis
-        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -xInput;
-        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -xInput;
-        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);*/
 
         // Player can shoot
         if (Input.GetButtonDown("Fire1"))
@@ -75,8 +73,11 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     public void Move()
     {
+        //takes Input Keys from Input System
         var movementInput = controls.Player.Movement.ReadValue<Vector2>();
 
+        //takes the Vector2 Input System and creates a Vector3 which takes the X-Axis Input to control movement on X-Axis
+        //and takes Y-Axis Input to control movement on the Z-Axis
         var movement = new Vector3
         {
             x = movementInput.x,
@@ -87,12 +88,26 @@ public class PlayerBehaviourScript : MonoBehaviour
         
     }
 
-    public void Shoot()
+    public void ZRotation()
     {
+        //takes the Input Keys for "ZRotation" from the Input System
+        var ZRotationInput = controls.Player.ZRotation.ReadValue<float>();
+
+        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -ZRotationInput;
+        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -ZRotationInput;
+        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
+
+    }
+
+    public void Shoot()
+    {         
+        //Instantiates Bullets at the Gunpoints set on the playerasset
         LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
         RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
+        //adds Rigidbody to the bullets
         Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
         Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
+        //adds Force to the bullets which pushes them forward
         bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
         bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
     }
