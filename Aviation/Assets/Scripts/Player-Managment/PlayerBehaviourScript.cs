@@ -1,33 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBehaviourScript : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 20;
+    [Header("References")]
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody playerrb;
     [SerializeField] private Transform FirePoint_1;
     [SerializeField] private Transform FirePoint_2;
     [SerializeField] private GameObject PlayerGunPrefab;
-    [SerializeField] float playerbulletForce = 20f;
-    private bool Rotation;
     private GameObject LeftGun;
     private GameObject RightGun;
+    public HealthBar healthBar;
+    public Fuel fuel;
+    [SerializeField] private PlayerInput playerInput = null;
+    [SerializeField] private CharacterController controller = null;
+
+    [Header("Settings")]
+    [SerializeField] private float movementSpeed = 20;
+    [SerializeField] float playerbulletForce = 20f;
+    private bool Rotation;
     public int maxHealth = 20;
     public int currentHealth;
-    public HealthBar healthBar;
     public float maxFuel = 20;
     public float currentFuel;
-    public Fuel fuel;
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
     private readonly float lockPos = 0f;
+    private Vector3 inputMovement;
 
-    private Controls controls = null;
-    private void Awake() => controls = new Controls();
-    private void OnEnable() => controls.Player.Enable();
-    private void OnDisable() => controls.Player.Disable();
+    public PlayerInput PlayerInput => playerInput;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,22 +51,15 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        ZRotation();
+        var finalMovement = inputMovement;
+        finalMovement *= movementSpeed * Time.deltaTime;
+        controller.Move(finalMovement);
 
-        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-        
         // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         pos.x = Mathf.Clamp01(pos.x);
         pos.y = Mathf.Clamp01(pos.y);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
-
-        // Player can shoot
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
 
         //FuelConsumption takes effect when time has passed
         if (timeForFuelLoss <= Time.time)
@@ -71,32 +69,14 @@ public class PlayerBehaviourScript : MonoBehaviour
         }
     }
 
-    public void Move()
+    public void Move(InputAction.CallbackContext ctx)
     {
-        //takes Input Keys from Input System
-        var movementInput = controls.Player.Movement.ReadValue<Vector2>();
+        var inputValue = ctx.ReadValue<Vector2>();
+        inputMovement = new Vector3(inputValue.x, 0f, inputValue.y);
 
-        //takes the Vector2 Input System and creates a Vector3 which takes the X-Axis Input to control movement on X-Axis
-        //and takes Y-Axis Input to control movement on the Z-Axis
-        var movement = new Vector3
-        {
-            x = movementInput.x,
-            z = movementInput.y
-        }.normalized;
-        
-        transform.Translate(movementSpeed * Time.deltaTime * movement);
-        
-    }
-
-    public void ZRotation()
-    {
-        //takes the Input Keys for "ZRotation" from the Input System
-        var ZRotationInput = controls.Player.ZRotation.ReadValue<float>();
-
-        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -ZRotationInput;
-        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -ZRotationInput;
+        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -inputValue.x;
+        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -inputValue.x;
         if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
-
     }
 
     public void Shoot()
