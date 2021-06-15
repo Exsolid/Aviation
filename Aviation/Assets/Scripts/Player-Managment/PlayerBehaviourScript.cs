@@ -29,7 +29,8 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
     private readonly float lockPos = 0f;
-    private Vector3 inputMovement;
+    private Transform cameraTransform;
+    private Vector3 playerVelocity;
 
     public PlayerInput PlayerInput => playerInput;
 
@@ -46,14 +47,24 @@ public class PlayerBehaviourScript : MonoBehaviour
         fuel.SetMaxFuel(maxFuel);
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         Rotation = true;
+        cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        var finalMovement = inputMovement;
-        finalMovement *= movementSpeed * Time.deltaTime;
-        controller.Move(finalMovement);
+        Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
+        Vector3 move = new Vector3(input.x, 0, input.y);
+        move = move.x * cameraTransform.right + move.z * cameraTransform.up;
+        move.y = 0f;
+        controller.Move(Time.deltaTime * movementSpeed * move);
+
+        controller.Move(playerVelocity * Time.deltaTime);
+
+        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -input.x;
+        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -input.x;
+        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
+        
 
         // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -69,16 +80,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         }
     }
 
-    public void Move(InputAction.CallbackContext ctx)
-    {
-        var inputValue = ctx.ReadValue<Vector2>();
-        inputMovement = new Vector3(inputValue.x, 0f, inputValue.y);
-
-        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -inputValue.x;
-        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -inputValue.x;
-        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
-    }
-
     public void Shoot()
     {         
         //Instantiates Bullets at the Gunpoints set on the playerasset
@@ -92,19 +93,19 @@ public class PlayerBehaviourScript : MonoBehaviour
         bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
     }
 
-    void FuelConsumption(float loss)
+    private void FuelConsumption(float loss)
     {
         currentFuel -= loss;
         fuel.SetFuel(currentFuel);
     }
 
-    void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         TakeDamage(2);
     }
