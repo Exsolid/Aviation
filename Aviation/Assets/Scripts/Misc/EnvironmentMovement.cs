@@ -11,7 +11,6 @@ public class EnvironmentMovement : MonoBehaviour
     [SerializeField] private float speed;
     private int counter;
     private Camera cam;
-
     private float maxDisplayHeightAtGameplay;
 
     void Start()
