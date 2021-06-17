@@ -27,6 +27,10 @@ public class EnemyBehaviour : MonoBehaviour
     private RaycastHit hitLeft;
     private RaycastHit hitRight;
 
+    public HealthBar healthBar;
+    public int maxHealth = 20;
+    public int currentHealth;
+
     public GameObject Player
     {
         set { player = value; }
@@ -43,6 +47,8 @@ public class EnemyBehaviour : MonoBehaviour
         rb.useGravity = false;
         hitsToDodge = new Collider[5];
         dodgeBoxSize = 16;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     void FixedUpdate()
@@ -144,5 +150,16 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
+    }
+
+    private void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        TakeDamage(2);
     }
 }
