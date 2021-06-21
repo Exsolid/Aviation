@@ -2079,7 +2079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f5e10b0da55b3458893be33d109cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemValue: 4
+  itemValue: 5
 --- !u!1 &933510534
 GameObject:
   m_ObjectHideFlags: 0
@@ -3689,7 +3689,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: / 4
+  m_Text: / 5
 --- !u!222 &1993348152
 CanvasRenderer:
   m_ObjectHideFlags: 0
