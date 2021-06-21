@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviourScript : MonoBehaviour
 {
@@ -77,6 +78,11 @@ public class PlayerBehaviourScript : MonoBehaviour
         {
             FuelConsumption(1f);
             timeForFuelLoss = Time.time + timeBetweenFuelLoss;
+        }
+
+        if(currentFuel <= 0 || currentHealth <= 0)
+        {
+            SceneManager.LoadScene("GameOverScreen");
         }
     }
 

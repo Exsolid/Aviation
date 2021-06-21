@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MenuSettings.unity
     guid: f6cf5c52da7bdfb44bf4176d2ee4d095
+  - enabled: 1
+    path: Assets/Scenes/WinningScreen.unity
+    guid: 2b8be0b051045a441affec80659efc7e
+  - enabled: 1
+    path: Assets/Scenes/Prototype-Level.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/GameOverScreen.unity
+    guid: f5523340a404d2c439c9470fa0447088
   m_configObjects: {}

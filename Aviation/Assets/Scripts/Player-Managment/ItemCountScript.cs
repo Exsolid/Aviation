@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ItemCountScript : MonoBehaviour
 {
@@ -23,5 +24,13 @@ public class ItemCountScript : MonoBehaviour
     {
         score += itemValue;
         text.text = "Items : " + score.ToString();
+    }
+
+    private void Update()
+    {
+        if(score >= 4)
+        {
+            SceneManager.LoadScene("WinningScreen");
+        }
     }
 }
