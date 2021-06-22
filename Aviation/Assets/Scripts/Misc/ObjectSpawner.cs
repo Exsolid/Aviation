@@ -8,6 +8,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private bool fromBehind;
     [SerializeField] private GameObject cloud;
     [SerializeField] private GameObject objectToSpawn;
+    [SerializeField] private float spawnRatePercentage;
     [SerializeField] private float interval;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
@@ -18,13 +19,15 @@ public class ObjectSpawner : MonoBehaviour
         if (cloud == null && isHidden == true) Debug.LogError(gameObject.name+": Cant hide object without a cloud prefab!");
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
+        Mathf.Clamp(spawnRatePercentage, 0, 100);
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer > interval)
+        int per = Random.Range(0, 100);
+        if (timer > interval && per <= spawnRatePercentage)
         {
             spawnObject();
             timer = 0;

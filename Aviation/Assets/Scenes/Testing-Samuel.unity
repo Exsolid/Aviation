@@ -414,13 +414,9 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2a44d7d9-bbd1-4eeb-9f7e-39fbfd80dda1
     m_ActionName: Player/Shoot[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a6a0892c-e627-48ef-9168-9467adbd13cf
-    m_ActionName: Player/ZRotation[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &194309375
@@ -435,20 +431,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61109e976f06548458ea5666e9ab65b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 20
   player: {fileID: 194309373}
   playerrb: {fileID: 194309378}
   FirePoint_1: {fileID: 1053189362}
   FirePoint_2: {fileID: 1073384620}
   PlayerGunPrefab: {fileID: 4173379685351198694, guid: d9cb7c026d04f3b4e96db38a7f26dfff,
     type: 3}
+  healthBar: {fileID: 178487332}
+  fuel: {fileID: 1182591918}
+  playerInput: {fileID: 0}
+  controller: {fileID: 0}
+  movementSpeed: 20
   playerbulletForce: 10
   maxHealth: 20
   currentHealth: 0
-  healthBar: {fileID: 178487332}
   maxFuel: 20
   currentFuel: 0
-  fuel: {fileID: 1182591918}
   timeBetweenFuelLoss: 5
 --- !u!65 &194309376
 BoxCollider:
@@ -1282,7 +1280,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 503
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1585,6 +1583,7 @@ MonoBehaviour:
   cloud: {fileID: 0}
   objectToSpawn: {fileID: 7553763244621172620, guid: bf150f99a47f5d2428ef20aef15bce85,
     type: 3}
+  spawnRatePercentage: 10
   interval: 10
 --- !u!4 &1840466181
 Transform:
@@ -1678,6 +1677,16 @@ PrefabInstance:
       objectReference: {fileID: 194309373}
     - target: {fileID: 813805254, guid: 3bfbd46df73db224995ebc9739836e4e, type: 3}
       propertyPath: enableRotationOnMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414217743253868037, guid: 3bfbd46df73db224995ebc9739836e4e,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414217743253868037, guid: 3bfbd46df73db224995ebc9739836e4e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3715390087943919291, guid: 3bfbd46df73db224995ebc9739836e4e,
