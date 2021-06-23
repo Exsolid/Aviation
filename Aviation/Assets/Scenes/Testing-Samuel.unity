@@ -541,9 +541,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   envParts:
-  - {fileID: 2030090548103763414, guid: a74f3b9a892b58343bb5c12de4ce2c23, type: 3}
-  - {fileID: 8226208119415572483, guid: 59cb2a0614e052748a81ef6aee76c2e9, type: 3}
-  speed: 100
+  - {fileID: 9220403777456198902, guid: 203e12b45abf01f489493725d45bff0b, type: 3}
+  - {fileID: 1681841663878930333, guid: c251ced3dd4cccd42818462181505764, type: 3}
+  speed: 50
 --- !u!20 &468732897
 Camera:
   m_ObjectHideFlags: 0
@@ -1679,6 +1679,11 @@ PrefabInstance:
       propertyPath: enableRotationOnMove
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1414217742726211801, guid: 3bfbd46df73db224995ebc9739836e4e,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1505150730}
     - target: {fileID: 1414217743253868037, guid: 3bfbd46df73db224995ebc9739836e4e,
         type: 3}
       propertyPath: m_AnchorMax.x
