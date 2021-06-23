@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOverScreen.unity
     guid: f5523340a404d2c439c9470fa0447088
+  - enabled: 1
+    path: Assets/Scenes/Spitfire-Level.unity
+    guid: f0cf3c65af973da44a83382d92c9f6d2
   m_configObjects: {}
