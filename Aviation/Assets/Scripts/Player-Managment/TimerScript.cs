@@ -5,8 +5,13 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    public float timeValue = 90;
+    public float timeValue;
     public Text timerText;
+
+    private void Start()
+    {
+        timeValue = Fuel.CurrentValue * 3; //Fuel is reduced every 3 seconds
+    }
 
     void Update()
     {
