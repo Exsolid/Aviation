@@ -332,7 +332,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1414217742714135535, guid: 24d6f0b9a164b0c498d6be86d531cda3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 24d6f0b9a164b0c498d6be86d531cda3, type: 3}
 --- !u!224 &1414217742726211800 stripped
 RectTransform:
