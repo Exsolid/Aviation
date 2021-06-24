@@ -10,6 +10,12 @@ public class TimerScript : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(setValues());
+    }
+
+    IEnumerator setValues()
+    {
+        yield return new WaitForEndOfFrame();
         timeValue = Fuel.CurrentValue * 3; //Fuel is reduced every 3 seconds
     }
 
