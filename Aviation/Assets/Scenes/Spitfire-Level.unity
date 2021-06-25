@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836102033}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 431e2c8385d7afe4bb656105e4125c5a, type: 3}
   m_Name: 
@@ -1195,9 +1195,10 @@ MonoBehaviour:
   isHidden: 0
   fromBehind: 0
   cloud: {fileID: 0}
-  objectToSpawn: {fileID: 0}
-  spawnRatePercentage: 0
-  interval: 0
+  objectToSpawn: {fileID: 829129675731601918, guid: 9a8e1f0d1eb7d1342b69b24e43af1b8a,
+    type: 3}
+  spawnRatePercentage: 100
+  interval: 5
 --- !u!4 &1836102036
 Transform:
   m_ObjectHideFlags: 0
@@ -1227,9 +1228,11 @@ MonoBehaviour:
   isHidden: 0
   cloud: {fileID: 0}
   objectsToSpawn:
-  - {fileID: 7553763244621172620, guid: bf150f99a47f5d2428ef20aef15bce85, type: 3}
-  - {fileID: 7553763244621172620, guid: bf150f99a47f5d2428ef20aef15bce85, type: 3}
-  - {fileID: 7553763244621172620, guid: bf150f99a47f5d2428ef20aef15bce85, type: 3}
+  - {fileID: 7576156975960668320, guid: 98f0b54790e1f8648b840f355cd7421a, type: 3}
+  - {fileID: 6151952602439587782, guid: dceb83d4044cbdf4f97d0abb04d00150, type: 3}
+  - {fileID: 7622751035756862859, guid: 4632a353d0466b34b8f3d88595577cc1, type: 3}
+  - {fileID: 1179211654779909603, guid: e92e9d8d10c158d44a3c594132fad3a6, type: 3}
+  - {fileID: 1047264853066188282, guid: 2de175aefc8d4cf499f981c1d2e74f1d, type: 3}
 --- !u!1 &1872271680
 GameObject:
   m_ObjectHideFlags: 0
