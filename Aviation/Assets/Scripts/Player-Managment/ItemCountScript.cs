@@ -28,7 +28,7 @@ public class ItemCountScript : MonoBehaviour
 
     private void Update()
     {
-        if(score >= 4)
+        if(score >= 5)
         {
             SceneManager.LoadScene("WinningScreen");
         }
