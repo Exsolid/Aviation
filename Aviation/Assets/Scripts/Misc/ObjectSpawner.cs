@@ -37,6 +37,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         GameObject obj = GameObject.Instantiate(objectToSpawn, new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 0, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1)), Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
+        obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
         movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1); ;
         if (cloud == null && isHidden == true)
         {
