@@ -37,6 +37,8 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     public PlayerInput PlayerInput => playerInput;
 
+    public float TimeBetweenFuelLoss { get { return timeBetweenFuelLoss; } }
+
 
     // Start is called before the first frame update
     void Start()

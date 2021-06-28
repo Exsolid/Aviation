@@ -8,6 +8,7 @@ public class CollectableSpawner : MonoBehaviour
     [SerializeField] private GameObject cloud;
     [SerializeField] private List<GameObject> objectsToSpawn;
     [SerializeField] private float cloudRatePercentage;
+    [SerializeField] GameObject player;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
     private float timer;
@@ -26,7 +27,7 @@ public class CollectableSpawner : MonoBehaviour
     IEnumerator setValues()
     {
         yield return new WaitForEndOfFrame();
-        interval = (Fuel.CurrentValue * 3 - 10) / objectsToSpawn.Count;
+        interval = (player.GetComponent<PlayerBehaviourScript>().maxFuel * player.GetComponent<PlayerBehaviourScript>().TimeBetweenFuelLoss - 10) / objectsToSpawn.Count;
         timer = interval / 5;
         start = true;
     }
