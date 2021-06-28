@@ -15,9 +15,10 @@ public class PlayerBehaviourScript : MonoBehaviour
     private GameObject LeftGun;
     private GameObject RightGun;
     public HealthBar healthBar;
-    public Fuel fuel;
     [SerializeField] private PlayerInput playerInput = null;
     [SerializeField] private CharacterController controller = null;
+    [SerializeField] private GameObject fuelArrow;
+    [SerializeField] private GameObject speedArrow;
 
     [Header("Settings")]
     [SerializeField] private float movementSpeed = 20;
@@ -32,7 +33,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     private readonly float lockPos = 0f;
     private Transform cameraTransform;
     private Vector3 playerVelocity;
-    private float maxSpeed;
+    private float defSpeed;
 
     public PlayerInput PlayerInput => playerInput;
 
@@ -46,11 +47,12 @@ public class PlayerBehaviourScript : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         currentFuel = maxFuel;
-        fuel.SetMaxFuel(maxFuel);
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         Rotation = true;
         cameraTransform = Camera.main.transform;
-        maxSpeed = movementSpeed;
+        defSpeed = movementSpeed;
+        fuelArrow.GetComponent<ArrowRotation>().MaxValue = maxFuel;
+        speedArrow.GetComponent<ArrowRotation>().MaxValue = defSpeed;
     }
 
     // Update is called once per frame
@@ -104,7 +106,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     private void FuelConsumption(float loss)
     {
         currentFuel -= loss;
-        fuel.SetFuel(currentFuel);
+        fuelArrow.GetComponent<ArrowRotation>().CurrentValue = currentFuel;
     }
 
     private void TakeDamage(int damage)
@@ -123,13 +125,15 @@ public class PlayerBehaviourScript : MonoBehaviour
         float diff = movementSpeed / 4 * -1;
         movementSpeed += diff;
         StartCoroutine(resetSpeed(5, diff));
+        speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
     }
 
     public void increaseSpeed()
     {
-        float diff = maxSpeed / 2;
+        float diff = defSpeed / 2;
         movementSpeed += diff;
         StartCoroutine(resetSpeed(5, diff));
+        speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
     }
 
     public IEnumerator resetSpeed(float timeInSec, float diff)
@@ -137,5 +141,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         yield return new WaitForSeconds(timeInSec);
         diff *= -1;
         movementSpeed += diff;
+        speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
     }
 }

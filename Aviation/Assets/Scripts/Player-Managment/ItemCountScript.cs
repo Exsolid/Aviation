@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ItemCountScript : MonoBehaviour
 {
     public static ItemCountScript instance;
-    public Text text;
+    [SerializeField]private Text text;
     int score;
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class ItemCountScript : MonoBehaviour
     public void ChangeCount(int itemValue)
     {
         score += itemValue;
-        text.text = "Items : " + score.ToString();
+        text.text = score.ToString();
     }
 
     private void Update()
