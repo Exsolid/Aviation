@@ -35,13 +35,14 @@ public class ObjectSpawner : MonoBehaviour
     }
     private void spawnObject()
     {
-        GameObject obj = GameObject.Instantiate(objectToSpawn, new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 0, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1)), Quaternion.Euler(0, 0, 0));
+        Vector3 pos = new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 0, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1));
+        GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
-        obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
+        if(fromBehind) obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
         movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1); ;
-        if (cloud == null && isHidden == true)
+        if (cloud != null && isHidden == true)
         {
-            GameObject objCloud = GameObject.Instantiate(objectToSpawn, new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 10, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1)), Quaternion.Euler(0, 0, 0));
+            GameObject objCloud = GameObject.Instantiate(cloud , pos + Vector3.up * 2, Quaternion.Euler(0, 90, 0));
             movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
         }

@@ -36,6 +36,12 @@ public class EnemyBehaviour : MonoBehaviour
         set { player = value; }
     }
 
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+
     void Start()
     {
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);

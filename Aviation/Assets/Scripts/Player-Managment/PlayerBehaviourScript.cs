@@ -32,6 +32,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     private readonly float lockPos = 0f;
     private Transform cameraTransform;
     private Vector3 playerVelocity;
+    private float maxSpeed;
 
     public PlayerInput PlayerInput => playerInput;
 
@@ -49,6 +50,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         Rotation = true;
         cameraTransform = Camera.main.transform;
+        maxSpeed = movementSpeed;
     }
 
     // Update is called once per frame
@@ -65,7 +67,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -input.x;
         if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -input.x;
         if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
-        
+
 
         // Player can't leave camera view
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -80,14 +82,14 @@ public class PlayerBehaviourScript : MonoBehaviour
             timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         }
 
-        if(currentFuel <= 0 || currentHealth <= 0)
+        if (currentFuel <= 0 || currentHealth <= 0)
         {
             SceneManager.LoadScene("GameOverScreen");
         }
     }
 
     public void Shoot()
-    {         
+    {
         //Instantiates Bullets at the Gunpoints set on the playerasset
         LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
         RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
@@ -114,5 +116,26 @@ public class PlayerBehaviourScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         TakeDamage(2);
+    }
+
+    public void reduceSpeed()
+    {
+        float diff = movementSpeed / 4 * -1;
+        movementSpeed += diff;
+        StartCoroutine(resetSpeed(5, diff));
+    }
+
+    public void increaseSpeed()
+    {
+        float diff = maxSpeed / 2;
+        movementSpeed += diff;
+        StartCoroutine(resetSpeed(5, diff));
+    }
+
+    public IEnumerator resetSpeed(float timeInSec, float diff)
+    {
+        yield return new WaitForSeconds(timeInSec);
+        diff *= -1;
+        movementSpeed += diff;
     }
 }

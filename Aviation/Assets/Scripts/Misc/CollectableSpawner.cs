@@ -44,12 +44,13 @@ public class CollectableSpawner : MonoBehaviour
     }
     private void spawnObject()
     {
-        GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 0, maxDisplayHeightAtGameplay), Quaternion.Euler(0, 0, 0));
+        Vector3 pos = new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 0, maxDisplayHeightAtGameplay);
+        GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         movement.Speed = Mathf.Abs(movement.Speed) * -1;
-        if (cloud == null && isHidden == true)
+        if (cloud != null && isHidden == true)
         {
-            GameObject objCloud = GameObject.Instantiate(objectsToSpawn[counter], new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 10, maxDisplayHeightAtGameplay), Quaternion.Euler(0, 0, 0));
+            GameObject objCloud = GameObject.Instantiate(cloud , pos+Vector3.up*2, Quaternion.Euler(0, 90, 0));
             movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * -1;
         }
