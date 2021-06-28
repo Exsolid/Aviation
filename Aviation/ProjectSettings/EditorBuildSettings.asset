@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Spitfire-Level.unity
     guid: f0cf3c65af973da44a83382d92c9f6d2
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: ba81f1f8e7b88fa40b140d4713662fd5
   m_configObjects: {}
