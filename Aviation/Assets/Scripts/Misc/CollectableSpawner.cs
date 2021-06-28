@@ -7,6 +7,7 @@ public class CollectableSpawner : MonoBehaviour
     [SerializeField] private bool isHidden;
     [SerializeField] private GameObject cloud;
     [SerializeField] private List<GameObject> objectsToSpawn;
+    [SerializeField] private float cloudRatePercentage;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
     private float timer;
@@ -48,7 +49,7 @@ public class CollectableSpawner : MonoBehaviour
         GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         movement.Speed = Mathf.Abs(movement.Speed) * -1;
-        if (cloud != null && isHidden == true)
+        if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
         {
             GameObject objCloud = GameObject.Instantiate(cloud , pos+Vector3.up*2, Quaternion.Euler(0, 90, 0));
             movement = objCloud.GetComponent<StaticObjectBehaviour>();

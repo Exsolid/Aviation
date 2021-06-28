@@ -9,6 +9,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject cloud;
     [SerializeField] private GameObject objectToSpawn;
     [SerializeField] private float spawnRatePercentage;
+    [SerializeField] private float cloudRatePercentage;
     [SerializeField] private float interval;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
@@ -40,7 +41,7 @@ public class ObjectSpawner : MonoBehaviour
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         if(fromBehind) obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
         movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1); ;
-        if (cloud != null && isHidden == true)
+        if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
         {
             GameObject objCloud = GameObject.Instantiate(cloud , pos + Vector3.up * 2, Quaternion.Euler(0, 90, 0));
             movement = objCloud.GetComponent<StaticObjectBehaviour>();
