@@ -774,7 +774,7 @@ MonoBehaviour:
   envParts:
   - {fileID: 9220403777456198902, guid: 203e12b45abf01f489493725d45bff0b, type: 3}
   - {fileID: 1681841663878930333, guid: c251ced3dd4cccd42818462181505764, type: 3}
-  speed: 15
+  speed: 10
 --- !u!20 &722360047
 Camera:
   m_ObjectHideFlags: 0
@@ -1803,6 +1803,7 @@ GameObject:
   - component: {fileID: 1836102034}
   - component: {fileID: 1836102037}
   - component: {fileID: 1836102038}
+  - component: {fileID: 1836102039}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1844,9 +1845,11 @@ MonoBehaviour:
   cloud: {fileID: 0}
   objectToSpawn: {fileID: 829129675731601918, guid: 9a8e1f0d1eb7d1342b69b24e43af1b8a,
     type: 3}
-  spawnRatePercentage: 80
+  spawnRatePercentage: 100
   cloudRatePercentage: 0
-  interval: 5
+  interval: 13
+  triangleSpawn: 1
+  invertTriangleSpawn: 0
 --- !u!4 &1836102036
 Transform:
   m_ObjectHideFlags: 0
@@ -1903,6 +1906,30 @@ MonoBehaviour:
   spawnRatePercentage: 80
   cloudRatePercentage: 100
   interval: 15
+  triangleSpawn: 0
+  invertTriangleSpawn: 0
+--- !u!114 &1836102039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836102033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431e2c8385d7afe4bb656105e4125c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHidden: 0
+  fromBehind: 0
+  cloud: {fileID: 0}
+  objectToSpawn: {fileID: 8310564015480984704, guid: 7f52a5c8a01fac44b9af866a0b38c9a1,
+    type: 3}
+  spawnRatePercentage: 100
+  cloudRatePercentage: 0
+  interval: 10
+  triangleSpawn: 1
+  invertTriangleSpawn: 1
 --- !u!1 &1872271680
 GameObject:
   m_ObjectHideFlags: 0

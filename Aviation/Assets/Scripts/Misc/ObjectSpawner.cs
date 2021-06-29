@@ -11,6 +11,8 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float spawnRatePercentage;
     [SerializeField] private float cloudRatePercentage;
     [SerializeField] private float interval;
+    [SerializeField] private bool triangleSpawn;
+    [SerializeField] private bool invertTriangleSpawn;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
     private float timer;
@@ -40,7 +42,21 @@ public class ObjectSpawner : MonoBehaviour
         GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         if(fromBehind) obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
-        movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1); ;
+        movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
+        if (triangleSpawn && !isHidden)
+        {
+            Bounds size = obj.GetComponent<Collider>().bounds;
+
+            obj = GameObject.Instantiate(objectToSpawn, pos + Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, 0, 0));
+            movement = obj.GetComponent<StaticObjectBehaviour>();
+            if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
+            movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
+
+            obj = GameObject.Instantiate(objectToSpawn, pos - Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, 0, 0));
+            movement = obj.GetComponent<StaticObjectBehaviour>();
+            if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
+            movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
+        }
         if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
         {
             GameObject objCloud = GameObject.Instantiate(cloud , pos + Vector3.up * 2, Quaternion.Euler(0, 90, 0));
