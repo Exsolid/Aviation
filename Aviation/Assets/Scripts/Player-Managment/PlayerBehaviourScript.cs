@@ -124,7 +124,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     public void reduceSpeed()
     {
-        float diff = movementSpeed / 4 * -1;
+        float diff = movementSpeed / 5 * -1;
         movementSpeed += diff;
         StartCoroutine(resetSpeed(5, diff));
         speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
@@ -132,7 +132,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     public void increaseSpeed()
     {
-        float diff = defSpeed / 2;
+        float diff = defSpeed * 2/3;
         movementSpeed += diff;
         StartCoroutine(resetSpeed(5, diff));
         speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;

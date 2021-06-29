@@ -16,6 +16,7 @@ public class CollectableSpawner : MonoBehaviour
     private int counter;
     private bool start;
     // Start is called before the first frame update
+    
     void Start()
     {
         if (cloud == null && isHidden == true) Debug.LogError(gameObject.name + ": Cant hide object without a cloud prefab!");

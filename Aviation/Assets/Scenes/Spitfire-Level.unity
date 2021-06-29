@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300.9, y: -234.2}
+  m_AnchoredPosition: {x: 285.1, y: -234.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &100045619
@@ -602,7 +602,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687263250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -316.4, y: -122.4, z: -0.011119775}
+  m_LocalPosition: {x: 269.6, y: -122.4, z: -0.011119775}
   m_LocalScale: {x: 7, y: 7, z: 0}
   m_Children: []
   m_Father: {fileID: 867051260}
@@ -774,7 +774,7 @@ MonoBehaviour:
   envParts:
   - {fileID: 9220403777456198902, guid: 203e12b45abf01f489493725d45bff0b, type: 3}
   - {fileID: 1681841663878930333, guid: c251ced3dd4cccd42818462181505764, type: 3}
-  speed: 50
+  speed: 15
 --- !u!20 &722360047
 Camera:
   m_ObjectHideFlags: 0
@@ -1054,7 +1054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857194922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -292, y: -152, z: -0.011115253}
+  m_LocalPosition: {x: 294, y: -152, z: -0.011115253}
   m_LocalScale: {x: 7, y: 7, z: 0}
   m_Children: []
   m_Father: {fileID: 867051260}
@@ -1217,7 +1217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876218407}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 100, z: 0}
+  m_LocalPosition: {x: 0, y: 69.4, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1872271681}
@@ -1274,6 +1274,11 @@ PrefabInstance:
       propertyPath: speedArrow
       value: 
       objectReference: {fileID: 687263250}
+    - target: {fileID: 2376759431184530719, guid: 8650fdac6c8501741b4ea670fa5851fc,
+        type: 3}
+      propertyPath: playerbulletForce
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 2842135720332495752, guid: 8650fdac6c8501741b4ea670fa5851fc,
         type: 3}
       propertyPath: m_RootOrder
@@ -1720,7 +1725,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388742760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -215.6, y: -209.6, z: -0.0111194765}
+  m_LocalPosition: {x: 370.4, y: -209.6, z: -0.0111194765}
   m_LocalScale: {x: 7, y: 7, z: 0}
   m_Children: []
   m_Father: {fileID: 867051260}
@@ -1812,7 +1817,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836102033}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 920768bd2ac00504da6bd8da2c2e62b8, type: 3}
   m_Name: 
@@ -1820,7 +1825,7 @@ MonoBehaviour:
   enemyToSpawn: {fileID: 4090507838946266113, guid: 3bfbd46df73db224995ebc9739836e4e,
     type: 3}
   player: {fileID: 982075563}
-  interval: 10
+  interval: 25
   speed: 25
 --- !u!114 &1836102035
 MonoBehaviour:
@@ -1829,7 +1834,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836102033}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 431e2c8385d7afe4bb656105e4125c5a, type: 3}
   m_Name: 
@@ -1839,7 +1844,7 @@ MonoBehaviour:
   cloud: {fileID: 0}
   objectToSpawn: {fileID: 829129675731601918, guid: 9a8e1f0d1eb7d1342b69b24e43af1b8a,
     type: 3}
-  spawnRatePercentage: 100
+  spawnRatePercentage: 80
   cloudRatePercentage: 0
   interval: 5
 --- !u!4 &1836102036
@@ -1868,7 +1873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690e38d7ca9913f43bb3f95cf145cd71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHidden: 1
+  isHidden: 0
   cloud: {fileID: 4456316786359694130, guid: 69623e837981ac24195c985dc4a2147d, type: 3}
   objectsToSpawn:
   - {fileID: 7576156975960668320, guid: 98f0b54790e1f8648b840f355cd7421a, type: 3}
@@ -1895,9 +1900,9 @@ MonoBehaviour:
   cloud: {fileID: 4456316786359694130, guid: 69623e837981ac24195c985dc4a2147d, type: 3}
   objectToSpawn: {fileID: 2015624762750917783, guid: 9fc48cf89613bb44dba8293fe339c890,
     type: 3}
-  spawnRatePercentage: 0
-  cloudRatePercentage: 0
-  interval: 3
+  spawnRatePercentage: 80
+  cloudRatePercentage: 100
+  interval: 15
 --- !u!1 &1872271680
 GameObject:
   m_ObjectHideFlags: 0

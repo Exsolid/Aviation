@@ -186,7 +186,7 @@ MonoBehaviour:
   enableRotationOnMove: 1
   gunPosLeft: {fileID: 2064440473}
   gunPosRight: {fileID: 2087975351}
-  shootTiming: 1
+  shootTiming: 2
   bulletPrefab: {fileID: 713195855296426307, guid: 93e380cf55a3f294498e92d5efc993af,
     type: 3}
   healthBar: {fileID: 1414217742630375502}
