@@ -1205,6 +1205,11 @@ PrefabInstance:
       objectReference: {fileID: 687263250}
     - target: {fileID: 2376759431184530719, guid: 8650fdac6c8501741b4ea670fa5851fc,
         type: 3}
+      propertyPath: movementSpeed
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376759431184530719, guid: 8650fdac6c8501741b4ea670fa5851fc,
+        type: 3}
       propertyPath: playerbulletForce
       value: 45
       objectReference: {fileID: 0}
@@ -1761,7 +1766,7 @@ MonoBehaviour:
     type: 3}
   player: {fileID: 982075563}
   interval: 25
-  speed: 25
+  speed: 30
 --- !u!114 &1836102035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1779,9 +1784,9 @@ MonoBehaviour:
   cloud: {fileID: 0}
   objectToSpawn: {fileID: 829129675731601918, guid: 9a8e1f0d1eb7d1342b69b24e43af1b8a,
     type: 3}
-  spawnRatePercentage: 100
+  spawnRatePercentage: 70
   cloudRatePercentage: 0
-  interval: 10
+  interval: 13
   triangleSpawn: 1
   invertTriangleSpawn: 0
 --- !u!4 &1836102036
@@ -1859,7 +1864,7 @@ MonoBehaviour:
   cloud: {fileID: 0}
   objectToSpawn: {fileID: 8310564015480984704, guid: 7f52a5c8a01fac44b9af866a0b38c9a1,
     type: 3}
-  spawnRatePercentage: 100
+  spawnRatePercentage: 80
   cloudRatePercentage: 0
   interval: 10
   triangleSpawn: 1
