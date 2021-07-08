@@ -779,7 +779,7 @@ MonoBehaviour:
   envParts:
   - {fileID: 9220403777456198902, guid: 203e12b45abf01f489493725d45bff0b, type: 3}
   - {fileID: 1681841663878930333, guid: c251ced3dd4cccd42818462181505764, type: 3}
-  speed: 10
+  speed: 4.5
 --- !u!20 &722360047
 Camera:
   m_ObjectHideFlags: 0
@@ -807,7 +807,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 57.65933
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
