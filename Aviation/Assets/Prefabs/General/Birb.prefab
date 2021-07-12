@@ -41,8 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d464e39a50d0ba42b099b284cecaa46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keepOnCollsion: 0
-  speed: 25
+  speed: 40
 --- !u!1001 &522629616334714031
 PrefabInstance:
   m_ObjectHideFlags: 0
