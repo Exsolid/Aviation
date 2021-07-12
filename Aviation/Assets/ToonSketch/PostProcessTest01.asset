@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3474f76660e3fe1448bccf51064f17d1, type: 3}
   m_Name: PostProcessTest01
   m_EditorClassIdentifier: 
-  loFiShadeEffect: 1
-  loFiShadeOffset: 3.2
-  loFiShadeThreshold1: 0.41
+  loFiShadeEffect: 0
+  loFiShadeOffset: -10
+  loFiShadeThreshold1: 0
   loFiShadeThreshold2: 0
-  loFiShadeThreshold3: 0.07
-  loFiShadeThreshold4: 0.5
+  loFiShadeThreshold3: 0
+  loFiShadeThreshold4: 0
   colorCrushEffect: 0
   colorCrushTexture: {fileID: 2800000, guid: 1959599d0d4a7104886df915c9940cd6, type: 3}
   outlineStyle: 3
@@ -28,16 +28,16 @@ MonoBehaviour:
   outlineMaxDistance: 1.16
   sketchEffect: 1
   sketchMultiEffect: 1
-  sketchAngles: 3
-  sketchSamples: 8
-  sketchSharpness: 0.68
-  sketchDetail: 0.6
-  sketchWeight: 0.69
-  canvasEffect: 1
+  sketchAngles: 8
+  sketchSamples: 2
+  sketchSharpness: 1
+  sketchDetail: 0.967
+  sketchWeight: 0.479
+  canvasEffect: 0
   canvasTexture: {fileID: 2800000, guid: f1265c6983c4ded4eb14ca3522c25eea, type: 3}
-  canvasWeight: 0.05
-  canvasJitterSpeed: 0.37
-  colorAmount: 0.93
-  loFiAmount: 0.19
-  outlineAmount: 0.45
-  canvasAmount: 0.24
+  canvasWeight: 0
+  canvasJitterSpeed: 0
+  colorAmount: 1
+  loFiAmount: 0
+  outlineAmount: 0.586
+  canvasAmount: 0
