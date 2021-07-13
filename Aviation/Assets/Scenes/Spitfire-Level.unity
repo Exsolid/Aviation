@@ -777,8 +777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   envParts:
-  - {fileID: 9220403777456198902, guid: 203e12b45abf01f489493725d45bff0b, type: 3}
-  - {fileID: 1681841663878930333, guid: c251ced3dd4cccd42818462181505764, type: 3}
+  - {fileID: 4917789453937054703, guid: 03a6ca596f9557647b442bc13a366a4b, type: 3}
+  - {fileID: 3731655827306955968, guid: c40ed6ce33d402348a7d879d496856cd, type: 3}
   speed: 4.5
 --- !u!20 &722360047
 Camera:
