@@ -38,7 +38,9 @@ public class PlayerBehaviourScript : MonoBehaviour
     public PlayerInput PlayerInput => playerInput;
 
     public float TimeBetweenFuelLoss { get { return timeBetweenFuelLoss; } }
-
+    private Scaler scaler;
+    private float maxDisplayHeightAtGameplay;
+    private float maxDisplayWidthAtGameplay;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,9 @@ public class PlayerBehaviourScript : MonoBehaviour
         defSpeed = movementSpeed;
         fuelArrow.GetComponent<ArrowRotation>().MaxValue = maxFuel;
         speedArrow.GetComponent<ArrowRotation>().MaxValue = defSpeed;
+        scaler = gameObject.GetComponent<Scaler>();
+        maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
     }
 
     // Update is called once per frame
@@ -74,10 +79,10 @@ public class PlayerBehaviourScript : MonoBehaviour
 
 
         // Player can't leave camera view
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        pos.x = Mathf.Clamp01(pos.x);
-        pos.y = Mathf.Clamp01(pos.y);
-        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x,  scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay/2 - scaler.BorderSizeRight);
+        pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay/2, maxDisplayHeightAtGameplay/2);
+        transform.position = pos;
 
         //FuelConsumption takes effect when time has passed
         if (timeForFuelLoss <= Time.time)

@@ -9,6 +9,7 @@ public class CollectableSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> objectsToSpawn;
     [SerializeField] private float cloudRatePercentage;
     [SerializeField] GameObject player;
+    private Scaler scaler;
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
     private float timer;
@@ -23,6 +24,7 @@ public class CollectableSpawner : MonoBehaviour
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
         StartCoroutine(setValues());
+        scaler = gameObject.GetComponent<Scaler>();
     }
 
     IEnumerator setValues()
@@ -47,15 +49,23 @@ public class CollectableSpawner : MonoBehaviour
     }
     private void spawnObject()
     {
-        Vector3 pos = new Vector3(Random.Range(maxDisplayWidthAtGameplay / -2, maxDisplayWidthAtGameplay / 2), 0, maxDisplayHeightAtGameplay);
+        Vector3 pos = new Vector3(Random.Range(scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay);
         GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         movement.Speed = Mathf.Abs(movement.Speed) * -1;
+        Scaler scl = obj.AddComponent<Scaler>();
+        scl.LeftGui = scaler.LeftGui;
+        scl.RightGui = scaler.RightGui;
+        scl.Canvas = scaler.Canvas;
         if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
         {
             GameObject objCloud = GameObject.Instantiate(cloud , pos+Vector3.up*2, Quaternion.Euler(0, 90, 0));
             movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * -1;
+            scl = objCloud.AddComponent<Scaler>();
+            scl.LeftGui = scaler.LeftGui;
+            scl.RightGui = scaler.RightGui;
+            scl.Canvas = scaler.Canvas;
         }
         counter++;
     }
