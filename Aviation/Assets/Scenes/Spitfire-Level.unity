@@ -1206,7 +1206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876218407}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 69.4, z: -0}
+  m_LocalPosition: {x: 0, y: 100.5, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1872271681}
@@ -1245,6 +1245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftGui: {fileID: 609150333}
   rightGui: {fileID: 2108961457}
+  canvas: {fileID: 1120299245}
 --- !u!1001 &1015221043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1436,7 +1437,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -780243029
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1120299249
@@ -1715,6 +1716,7 @@ GameObject:
   - component: {fileID: 1836102037}
   - component: {fileID: 1836102038}
   - component: {fileID: 1836102039}
+  - component: {fileID: 1836102040}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1841,6 +1843,21 @@ MonoBehaviour:
   interval: 10
   triangleSpawn: 1
   invertTriangleSpawn: 1
+--- !u!114 &1836102040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836102033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f70e7886f338543bd2cd811ea8f5e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftGui: {fileID: 609150333}
+  rightGui: {fileID: 2108961457}
+  canvas: {fileID: 1120299245}
 --- !u!1 &1872271680
 GameObject:
   m_ObjectHideFlags: 0
