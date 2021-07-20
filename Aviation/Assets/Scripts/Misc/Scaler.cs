@@ -23,8 +23,14 @@ public class Scaler : MonoBehaviour
         initialScaling = 16 / 9f;
         neededScaling = Camera.main.aspect / initialScaling;
         Vector2 canvasScale = new Vector2(canvas.transform.localScale.x, canvas.transform.localScale.y);
-        borderSizeLeft = leftGui.GetComponent<RectTransform>().rect.size.x * canvasScale.x + 50 * neededScaling;
-        borderSizeRight = rightGui.GetComponent<RectTransform>().rect.size.x *canvasScale.x + 50 * neededScaling;
+
+        float xSize = 0;
+        if (gameObject.GetComponent<Collider>() != null)
+        {
+            xSize = gameObject.GetComponent<Collider>().bounds.size.x / 2 * neededScaling;
+        }
+        borderSizeLeft = leftGui.GetComponent<RectTransform>().rect.size.x * canvasScale.x + xSize;
+        borderSizeRight = rightGui.GetComponent<RectTransform>().rect.size.x *canvasScale.x + xSize;
 
         gameObject.transform.localScale = gameObject.transform.localScale / neededScaling;
     }
