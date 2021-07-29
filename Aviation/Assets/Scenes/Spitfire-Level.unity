@@ -1847,7 +1847,7 @@ MonoBehaviour:
   isHidden: 0
   fromBehind: 0
   cloud: {fileID: 0}
-  objectToSpawn: {fileID: 829129675731601918, guid: 9a8e1f0d1eb7d1342b69b24e43af1b8a,
+  objectToSpawn: {fileID: 6985405677807810659, guid: 9a8e1f0d1eb7d1342b69b24e43af1b8a,
     type: 3}
   spawnRatePercentage: 70
   cloudRatePercentage: 0
@@ -1927,7 +1927,7 @@ MonoBehaviour:
   isHidden: 0
   fromBehind: 0
   cloud: {fileID: 0}
-  objectToSpawn: {fileID: 8310564015480984704, guid: 7f52a5c8a01fac44b9af866a0b38c9a1,
+  objectToSpawn: {fileID: 728849536338170479, guid: 2e7e0d2c12df7ac48a54cc51f39ab573,
     type: 3}
   spawnRatePercentage: 80
   cloudRatePercentage: 0
