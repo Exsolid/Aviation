@@ -41,7 +41,7 @@ public class ObjectSpawner : MonoBehaviour
     private void spawnObject()
     {
         Vector3 pos = new Vector3(Random.Range(scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1));
-        GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, 0, 0));
+        GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         if(fromBehind) obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
         movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
@@ -49,7 +49,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             Bounds size = obj.GetComponent<Collider>().bounds;
 
-            obj = GameObject.Instantiate(objectToSpawn, pos + Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, 0, 0));
+            obj = GameObject.Instantiate(objectToSpawn, pos + Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
             movement = obj.GetComponent<StaticObjectBehaviour>();
             if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
             movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
@@ -58,7 +58,7 @@ public class ObjectSpawner : MonoBehaviour
             scl.RightGui = scaler.RightGui;
             scl.Canvas = scaler.Canvas;
 
-            obj = GameObject.Instantiate(objectToSpawn, pos - Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, 0, 0));
+            obj = GameObject.Instantiate(objectToSpawn, pos - Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
             movement = obj.GetComponent<StaticObjectBehaviour>();
             if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
             movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
