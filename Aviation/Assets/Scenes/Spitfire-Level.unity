@@ -1806,6 +1806,7 @@ GameObject:
   - component: {fileID: 1836102037}
   - component: {fileID: 1836102038}
   - component: {fileID: 1836102039}
+  - component: {fileID: 1836102041}
   - component: {fileID: 1836102040}
   m_Layer: 0
   m_Name: Spawner
@@ -1948,6 +1949,21 @@ MonoBehaviour:
   leftGui: {fileID: 609150333}
   rightGui: {fileID: 2108961457}
   canvas: {fileID: 1120299245}
+--- !u!114 &1836102041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836102033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61ef00ac13ffb34c916e94c80c18845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interval: 4
+  objectToSpawn: {fileID: 2423941245058575898, guid: 8234d3a83f71916449aaf982fe6987f3,
+    type: 3}
 --- !u!1 &1872271680
 GameObject:
   m_ObjectHideFlags: 0

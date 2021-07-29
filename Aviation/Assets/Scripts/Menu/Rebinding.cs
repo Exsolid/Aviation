@@ -11,15 +11,17 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
     private string keyPress;
     private bool isKeyboard;
     private bool isSetting;
+    private string alternateText;
 
     private Text textChild;
     void Start()
     {
+        alternateText = "";
         textChild = (Text)gameObject.GetComponentInChildren(typeof(Text));
     }
     public void OnGUI()
     {
-        textChild.text = returnKeyCode(Bindings.Instance.currentValueOfControl(control));
+        textChild.text = alternateText.Equals("") ? returnKeyCode(Bindings.Instance.currentValueOfControl(control)) : alternateText;
         Event e = Event.current;
         if (e != null && e.type.Equals(EventType.KeyDown) && e.keyCode != KeyCode.None)
             keyPress = e.keyCode.ToString(); isKeyboard = true;
@@ -53,12 +55,21 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
 
     private void setKeyToControl(string key, string keyOrMouseCode)
     {
-        key = keyOrMouseCode + key;
+        alternateText = "";
+        string keyPath = keyOrMouseCode + key;
         Dictionary<string, string> temp = new Dictionary<string, string>();
-        Bindings.Instance.setKey(control, key, actionName);
+        if(!Bindings.Instance.setKey(control, keyPath, actionName))
+        {
+            alternateText = "Input invalid";
+            StartCoroutine(resetText());
+        }
     }
-
-    IEnumerator setEvent()
+    IEnumerator resetText()
+    {
+        yield return new WaitForSeconds(3);
+        alternateText = "";
+    }
+        IEnumerator setEvent()
     {
         keyPress = "";
         do

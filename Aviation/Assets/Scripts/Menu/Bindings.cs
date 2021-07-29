@@ -22,10 +22,10 @@ public class Bindings
         currentConToKey = new Dictionary<string, string>();
     }
 
-    public void setKey(string control, string path, string actionName)
+    public bool setKey(string control, string path, string actionName)
     {
         control = stripToEmpty(control);
-        if (currentConToKey.ContainsValue(path)) return;
+        if (currentConToKey.ContainsValue(path)) return false;
         if (control.Equals(""))
         {
             //Workaround for InputSystem bug (else part does not set the control to right binding if the name is empty)
@@ -40,6 +40,7 @@ public class Bindings
             currentConToKey[control] = path;
         }
         writeToPlayerPrefs();
+        return true;
     }
     public void resetKey(string control, string actionName)
     {
