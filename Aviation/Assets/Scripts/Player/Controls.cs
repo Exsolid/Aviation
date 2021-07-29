@@ -59,7 +59,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""7962668c-4aae-4c5a-b3a5-191b9b1c3428"",
-                    ""path"": ""<Keyboard>/W"",
+                    ""path"": ""<Keyboard>/Y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -70,7 +70,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""c46b900c-6a96-49ae-8a2b-83ac174ae993"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/S"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -116,11 +116,16 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""New control scheme"",
-            ""bindingGroup"": ""New control scheme"",
+            ""name"": ""Default"",
+            ""bindingGroup"": ""Default"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -228,13 +233,13 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
-    private int m_NewcontrolschemeSchemeIndex = -1;
-    public InputControlScheme NewcontrolschemeScheme
+    private int m_DefaultSchemeIndex = -1;
+    public InputControlScheme DefaultScheme
     {
         get
         {
-            if (m_NewcontrolschemeSchemeIndex == -1) m_NewcontrolschemeSchemeIndex = asset.FindControlSchemeIndex("New control scheme");
-            return asset.controlSchemes[m_NewcontrolschemeSchemeIndex];
+            if (m_DefaultSchemeIndex == -1) m_DefaultSchemeIndex = asset.FindControlSchemeIndex("Default");
+            return asset.controlSchemes[m_DefaultSchemeIndex];
         }
     }
     public interface IGameplayActions

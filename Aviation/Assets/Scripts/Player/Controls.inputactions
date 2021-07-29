@@ -37,7 +37,7 @@
                 {
                     "name": "up",
                     "id": "7962668c-4aae-4c5a-b3a5-191b9b1c3428",
-                    "path": "<Keyboard>/W",
+                    "path": "<Keyboard>/Y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -48,7 +48,7 @@
                 {
                     "name": "down",
                     "id": "c46b900c-6a96-49ae-8a2b-83ac174ae993",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/S",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -94,11 +94,16 @@
     ],
     "controlSchemes": [
         {
-            "name": "New control scheme",
-            "bindingGroup": "New control scheme",
+            "name": "Default",
+            "bindingGroup": "Default",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }
