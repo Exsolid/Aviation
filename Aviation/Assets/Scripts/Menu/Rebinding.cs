@@ -7,46 +7,55 @@ using UnityEngine.UI;
 public class Rebinding : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private string control;
-    [SerializeField] public InputActionAsset controls;
-    private Dictionary<string, string> conToKey;
-    private InputActionMap map;
-    private InputAction ac;
+    [SerializeField] private string actionName;
     private string keyPress;
+    private bool isKeyboard;
+    private bool isSetting;
 
     private Text textChild;
     void Start()
     {
         textChild = (Text)gameObject.GetComponentInChildren(typeof(Text));
-        map = controls.FindActionMap("Gameplay");
-        conToKey = new Dictionary<string, string>();
-        ac = map.FindAction("Movement");
-        foreach (InputBinding b in ac.bindings)
-        {
-            conToKey.Add(b.name, b.path);
-        }
-        textChild.text = returnKeyCode(conToKey[control]);
     }
     public void OnGUI()
     {
+        textChild.text = returnKeyCode(Bindings.Instance.currentValueOfControl(control));
         Event e = Event.current;
         if (e != null && e.type.Equals(EventType.KeyDown) && e.keyCode != KeyCode.None)
-            keyPress = e.keyCode.ToString();
+            keyPress = e.keyCode.ToString(); isKeyboard = true;
+        if (e != null && e.isMouse)
+        {
+            isKeyboard = false;
+            switch (e.button)
+            {
+                case 0:
+                    keyPress = "leftButton";
+                    break;
+                case 1:
+                    keyPress = "rightButton";
+                    break;
+                case 2:
+                    keyPress = "middleButton";
+                    break;
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(map.ToJson());
-        StartCoroutine(setEvent());
-    }
-    private void setKeyToControl(string key)
-    {
-        Debug.Log(key);
-        key = "<Keyboard>/" + key;
 
-        ac.ChangeBindingWithPath(conToKey[control]).WithPath(key);
-        conToKey[control] = key;
-        textChild.text = returnKeyCode(conToKey[control]);
-        Debug.Log(map.ToJson());
+        if (!isSetting)
+        {
+            StartCoroutine(setEvent());
+            isSetting = true;
+        }
+    }
+
+    private void setKeyToControl(string key, string keyOrMouseCode)
+    {
+        key = keyOrMouseCode + key;
+        Dictionary<string, string> temp = new Dictionary<string, string>();
+        Bindings.Instance.setKey(control, key, actionName);
     }
 
     IEnumerator setEvent()
@@ -56,7 +65,9 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
         {
             yield return null;
         } while (keyPress == "");
-        setKeyToControl(keyPress);
+        setKeyToControl(keyPress, isKeyboard ? "<Keyboard>/" : "<Mouse>/");
+        yield return new WaitForSeconds(0.3f);
+        isSetting = false;
     }
 
     private string returnKeyCode(string path)
@@ -65,11 +76,20 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
         char[] chars = path.ToCharArray();
         bool canStart = false;
         path = "";
+        bool nextToUpper = true;
         foreach (char c in chars)
         {
             if (canStart)
             {
-                path = path + c;
+                char newC = c;
+                if (nextToUpper)
+                {
+                    newC = char.ToUpper(newC);
+                    nextToUpper = false;
+                }
+                else if (char.IsUpper(newC)) path = path + " ";
+                path = path + newC;
+
             }
             if (c.Equals('/')) canStart = true;
         }

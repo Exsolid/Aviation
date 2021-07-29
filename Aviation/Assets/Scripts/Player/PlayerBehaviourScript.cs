@@ -41,9 +41,13 @@ public class PlayerBehaviourScript : MonoBehaviour
     private float maxDisplayHeightAtGameplay;
     private float maxDisplayWidthAtGameplay;
 
+    [SerializeField]private float shootTiming;
+    private float shootTimer;
+
     // Start is called before the first frame update
     void Start()
     {
+        shootTimer = 0;
         playerrb = GetComponent<Rigidbody>();
         playerrb.useGravity = false;
         playerrb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
@@ -64,6 +68,12 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shootTimer += Time.deltaTime;
+        if(shootTimer > shootTiming)
+        {
+            shootTimer = 0;
+            playerInput.actions["Shoot"].performed += _ => Shoot();
+        }
         Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = move.x * cameraTransform.right + move.z * cameraTransform.up;
@@ -96,7 +106,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         }
     }
 
-    public void Shoot()
+    private void Shoot()
     {
         //Instantiates Bullets at the Gunpoints set on the playerasset
         LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);

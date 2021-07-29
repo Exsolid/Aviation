@@ -37,7 +37,7 @@
                 {
                     "name": "up",
                     "id": "7962668c-4aae-4c5a-b3a5-191b9b1c3428",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/W",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -48,7 +48,7 @@
                 {
                     "name": "down",
                     "id": "c46b900c-6a96-49ae-8a2b-83ac174ae993",
-                    "path": "<Keyboard>/s",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -59,7 +59,7 @@
                 {
                     "name": "left",
                     "id": "e2f04a08-7025-4ba2-ba06-0181d75e3ba8",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/A",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -70,7 +70,7 @@
                 {
                     "name": "right",
                     "id": "4db372ed-0f03-4e74-a9e0-6aa16a1aba25",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/D",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -81,8 +81,8 @@
                 {
                     "name": "",
                     "id": "30e992b1-d4dc-4fe2-924c-a3faad94c891",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
@@ -90,12 +90,6 @@
                     "isPartOfComposite": false
                 }
             ]
-        },
-        {
-            "name": "Menu",
-            "id": "052907e7-012e-45ff-bf47-86e8099b3ead",
-            "actions": [],
-            "bindings": []
         }
     ],
     "controlSchemes": [
