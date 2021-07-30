@@ -192,6 +192,7 @@ MonoBehaviour:
   healthBar: {fileID: 1414217742630375502}
   maxHealth: 20
   currentHealth: 0
+  durationOfStay: 8
 --- !u!65 &7954063329989188569
 BoxCollider:
   m_ObjectHideFlags: 0

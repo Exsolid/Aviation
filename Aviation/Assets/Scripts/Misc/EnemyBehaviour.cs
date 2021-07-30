@@ -31,6 +31,8 @@ public class EnemyBehaviour : MonoBehaviour
     public int maxHealth = 20;
     public int currentHealth;
 
+    [SerializeField] private float durationOfStay;
+    private bool flyAway;
     public GameObject Player
     {
         set { player = value; }
@@ -52,9 +54,10 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         hitsToDodge = new Collider[5];
-        dodgeBoxSize = 16;
+        dodgeBoxSize = 35;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        StartCoroutine(stayTimer());
     }
 
     void FixedUpdate()
@@ -69,14 +72,14 @@ public class EnemyBehaviour : MonoBehaviour
         shoot();
         moveBasedOnDistance(xDistanceToPlayer, zDistanceToPlayer, zDistanceToPlayer < 0);
     }
-    void OnDrawGizmos()
+
+    private IEnumerator stayTimer()
     {
-        Bounds bounds = new Bounds();
-        bounds.center = transform.position;
-        bounds.size = new Vector3(dodgeBoxSize, 0, dodgeBoxSize);
-        //DebugExtension.DrawBounds(bounds, Color.red);
+        yield return new WaitForSeconds(durationOfStay);
+        flyAway = true;
     }
-        private void shoot()
+
+    private void shoot()
     {
         if ((hitRight.transform != null || hitLeft.transform != null) && shootTimer > shootTiming)
         {
@@ -108,12 +111,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void moveBasedOnDistance(float distanceX, float distanceZ, bool inversZ)
     {
+        if (flyAway) inversZ = true;
         float clostestOnX = 0;
         Vector3 clostestOnZ = new Vector3(0,0,0);
         bool disableRotation = false;
         for (int i = 0; i < countedHits; i++)
         {
-            if (hitsToDodge[i].tag != "Player" && !((GameObject)hitsToDodge[i].gameObject).Equals(gameObject))
+            if ((hitsToDodge[i].tag != "Player" || inversZ) && hitsToDodge[i].tag != "Bullet" && !((GameObject)hitsToDodge[i].gameObject).Equals(gameObject))
             {
                 if (Mathf.Abs(clostestOnX) < Mathf.Abs(hitsToDodge[i].transform.position.x)) clostestOnX = hitsToDodge[i].transform.position.x;
                 if (Mathf.Abs(clostestOnZ.z) < Mathf.Abs(hitsToDodge[i].transform.position.z) && hitsToDodge[i].transform.position.z > transform.position.z) clostestOnZ = hitsToDodge[i].transform.position;
@@ -122,23 +126,26 @@ public class EnemyBehaviour : MonoBehaviour
         float speedOnX = 0;
         float speedOnZ = 0;
         //               speed * (function that returns -1 to 1 based on the distance to the player                                    * invers direction          + default speed) * framerate edit 
-        if (clostestOnX == 0) speedOnX = speed * (Mathf.Abs(Mathf.Pow(((distanceX) / maxDisplayWidthAtGameplay), 2)) + 0.1f) * Time.deltaTime * getDirectionOnX();
-        else
+
+        if (clostestOnX == 0 && !inversZ && Mathf.Abs(distanceX) > 1f) speedOnX = speed * (Mathf.Abs(Mathf.Pow(((distanceX - transform.position.x) / maxDisplayWidthAtGameplay), 2)) + 0.2f) * Time.deltaTime * getDirectionOnX();
+        else if (clostestOnX != 0)
         {
-            speedOnX = speed * (Mathf.Abs(Mathf.Pow(((clostestOnX - transform.position.x) / maxDisplayWidthAtGameplay), 2)) + 0.1f) * Time.deltaTime * (clostestOnX > transform.position.x ? -1 : 1);
+            speedOnX = speed * (Mathf.Abs(Mathf.Pow(((clostestOnX - transform.position.x) / maxDisplayWidthAtGameplay), 2)) + 0.4f) * Time.deltaTime * (clostestOnX > transform.position.x ? -1 : 1);
             disableRotation = true;
+            smooth(rb.velocity.x, speedOnX);
         }
-            //               speed * function that returns 0-1 based on the distance to the player                                  * direction to move * framerate edit
-        if (clostestOnZ.z == 0) speedOnZ = speed * (Mathf.Abs(Mathf.Pow((distanceZ - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2) + (inversZ ? -1 : 0)) + (inversZ ? 0.05f : -0.05f)) * Time.deltaTime;
+        //               speed * function that returns 0-1 based on the distance to the player                                  * direction to move * framerate edit
+        if (clostestOnZ.z == 0) speedOnZ = speed * 1.5f * (Mathf.Abs(Mathf.Pow((inversZ ? speed * 0.013f : distanceZ - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2)) + (inversZ ? 0.02f : -0.05f)) * Time.deltaTime;
         else
         {
-            speedOnZ = speed * (Mathf.Abs(Mathf.Pow((clostestOnZ.z - transform.position.z - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2)) + (zDistanceToPlayer < 0 ? 0.05f : -0.05f)) * Time.deltaTime;
+            speedOnZ = speed * (Mathf.Abs(Mathf.Pow((clostestOnZ.z - transform.position.z - minDistanceToPlayer) / maxDisplayHeightAtGameplay, 2)) + ((zDistanceToPlayer < 0) ? 0.05f : -0.05f)) * Time.deltaTime;
             speedOnX = speed * (Mathf.Abs(Mathf.Pow(((clostestOnZ.x - transform.position.x) / maxDisplayWidthAtGameplay), 2)) + 0.3f) * Time.deltaTime * (clostestOnZ.x > transform.position.x ? -1 : 1);
             disableRotation = true;
+            smooth(rb.velocity.x, speedOnX);
         }
         //Cap speed because zDistanceToPlayer (zDistanceToPlayer - minDistanceToPlayer) / maxDisplayHeightAtGameplay can return big numbers if player to enemy distance gets big
         if (speedOnZ > speed / 50) speedOnZ = speed / 50;
-        rb.velocity = new Vector3(smooth(rb.velocity.x, speedOnX), 0, smooth(rb.velocity.z, speedOnZ));
+        rb.velocity = new Vector3(speedOnX, 0, smooth(rb.velocity.z, speedOnZ));
 
                         //function that returns 0-1 based on the distance to the player 
         float rotationOnZ = 3 * Mathf.Pow((distanceX / maxDisplayWidthAtGameplay), 2) * 360 * (clostestOnX == 0 ? -getDirectionOnX() : (clostestOnX < transform.position.x ? -1 : 1));
@@ -148,8 +155,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     private float smooth(float current, float toSet)
     {
-        if (toSet == 0) return current;
-        current = toSet*(Mathf.Abs(toSet) / (Mathf.Abs(current) + Mathf.Abs(toSet)));
+        if (toSet == 0 || Mathf.Abs(Mathf.Abs(current) - Mathf.Abs(toSet)) < 5f)
+        {
+            return current;
+        }
+        current = toSet*(Mathf.Abs(toSet) / (Mathf.Abs(current)*1.4f + Mathf.Abs(toSet)));
+        Debug.Log(current + " after");
         return current;
     }
 
