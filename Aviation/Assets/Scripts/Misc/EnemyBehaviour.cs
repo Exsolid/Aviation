@@ -123,6 +123,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (Mathf.Abs(clostestOnZ.z) < Mathf.Abs(hitsToDodge[i].transform.position.z) && hitsToDodge[i].transform.position.z > transform.position.z) clostestOnZ = hitsToDodge[i].transform.position;
             }
         }
+
         float speedOnX = 0;
         float speedOnZ = 0;
         //               speed * (function that returns -1 to 1 based on the distance to the player                                    * invers direction          + default speed) * framerate edit 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectable
   - StatusChanger
+  - Bullet
   layers:
   - Default
   - TransparentFX
