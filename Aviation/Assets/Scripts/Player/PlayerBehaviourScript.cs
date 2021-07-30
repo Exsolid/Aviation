@@ -8,9 +8,9 @@ public class PlayerBehaviourScript : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody playerrb;
-    [SerializeField] private Transform FirePoint_1;
-    [SerializeField] private Transform FirePoint_2;
-    [SerializeField] private GameObject PlayerGunPrefab;
+    [SerializeField] private Transform gunPosLeft;
+    [SerializeField] private Transform gunPosRight;
+    [SerializeField] private GameObject bulletPrefab;
     private GameObject LeftGun;
     private GameObject RightGun;
     public HealthBar healthBar;
@@ -21,7 +21,6 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float movementSpeed = 20;
-    [SerializeField] float playerbulletForce = 20f;
     private bool Rotation;
     public int maxHealth = 20;
     public int currentHealth;
@@ -31,7 +30,6 @@ public class PlayerBehaviourScript : MonoBehaviour
     private float timeForFuelLoss;
     private readonly float lockPos = 0f;
     private Transform cameraTransform;
-    private Vector3 playerVelocity;
     private float defSpeed;
 
     public PlayerInput PlayerInput => playerInput;
@@ -50,7 +48,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         shootTimer = 0;
         playerrb = GetComponent<Rigidbody>();
         playerrb.useGravity = false;
-        playerrb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+        playerrb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         currentFuel = maxFuel;
@@ -74,14 +72,13 @@ public class PlayerBehaviourScript : MonoBehaviour
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = move.x * cameraTransform.right + move.z * cameraTransform.up;
         move.y = 0f;
+        controller.enabled = true;
         controller.Move(Time.deltaTime * movementSpeed * move);
-
-        controller.Move(playerVelocity * Time.deltaTime);
+        controller.enabled = false;
 
         float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -input.x;
         if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -input.x;
         if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
-
 
         // Player can't leave camera view
         Vector3 pos = transform.position;
@@ -107,15 +104,19 @@ public class PlayerBehaviourScript : MonoBehaviour
         if (shootTimer > shootTiming)
         {
             shootTimer = 0;
-            //Instantiates Bullets at the Gunpoints set on the playerasset
-            LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
-            RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
-            //adds Rigidbody to the bullets
-            Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
-            Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
-            //adds Force to the bullets which pushes them forward
-            bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
-            bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
+
+            if (gunPosLeft != null && bulletPrefab != null)
+            {
+                //Create bullet and add the planes speed to the bullet speed
+                GameObject obj = GameObject.Instantiate(bulletPrefab, gunPosLeft.transform.position, Quaternion.Euler(0, 0, 0));
+                obj.layer = LayerMask.NameToLayer("Player");
+            }
+            if (gunPosRight != null && bulletPrefab != null)
+            {
+                //Create bullet and add the planes speed to the bullet speed
+                GameObject obj = GameObject.Instantiate(bulletPrefab, gunPosRight.transform.position, Quaternion.Euler(0, 0, 0));
+                obj.layer = LayerMask.NameToLayer("Player");
+            }
         }
     }
 
