@@ -1365,7 +1365,7 @@ PrefabInstance:
     - target: {fileID: 2376759431184530719, guid: 8650fdac6c8501741b4ea670fa5851fc,
         type: 3}
       propertyPath: shootTiming
-      value: 2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2376759431184530719, guid: 8650fdac6c8501741b4ea670fa5851fc,
         type: 3}

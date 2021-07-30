@@ -69,11 +69,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     void Update()
     {
         shootTimer += Time.deltaTime;
-        if(shootTimer > shootTiming)
-        {
-            shootTimer = 0;
-            playerInput.actions["Shoot"].performed += _ => Shoot();
-        }
+        playerInput.actions["Shoot"].performed += _ => Shoot();
         Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = move.x * cameraTransform.right + move.z * cameraTransform.up;
@@ -108,15 +104,19 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void Shoot()
     {
-        //Instantiates Bullets at the Gunpoints set on the playerasset
-        LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
-        RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
-        //adds Rigidbody to the bullets
-        Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
-        Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
-        //adds Force to the bullets which pushes them forward
-        bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
-        bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
+        if (shootTimer > shootTiming)
+        {
+            shootTimer = 0;
+            //Instantiates Bullets at the Gunpoints set on the playerasset
+            LeftGun = Instantiate(PlayerGunPrefab, FirePoint_1.position, FirePoint_1.rotation);
+            RightGun = Instantiate(PlayerGunPrefab, FirePoint_2.position, FirePoint_2.rotation);
+            //adds Rigidbody to the bullets
+            Rigidbody bulletrb = LeftGun.GetComponent<Rigidbody>();
+            Rigidbody bullet2rb = RightGun.GetComponent<Rigidbody>();
+            //adds Force to the bullets which pushes them forward
+            bulletrb.AddForce(FirePoint_1.forward * playerbulletForce, ForceMode.Impulse);
+            bullet2rb.AddForce(FirePoint_2.forward * playerbulletForce, ForceMode.Impulse);
+        }
     }
 
     private void FuelConsumption(float loss)
