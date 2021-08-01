@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.nicelyevilgames.audiobuddypackage": {
+      "version": "https://github.com/IndigoBlu3/AudioBuddy.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "97d245ccfc06ffb1e5b08b50262629f2adeb4f80"
+    },
     "com.unity.collab-proxy": {
       "version": "1.3.9",
       "depth": 0,
