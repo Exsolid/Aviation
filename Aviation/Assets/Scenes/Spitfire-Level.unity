@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 437710567}
   - component: {fileID: 437710566}
   - component: {fileID: 437710565}
+  - component: {fileID: 437710568}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -746,6 +747,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &437710568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437710564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8fbe875dcc61b4c8be77e58c52e954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackName: The Great Battle - Spitfire
 --- !u!1 &559336565
 GameObject:
   m_ObjectHideFlags: 0

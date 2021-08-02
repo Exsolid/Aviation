@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using AudioBuddyTool;
+using UnityEngine.EventSystems;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour, IPointerUpHandler
 {
     [SerializeField] private string key;
+    private bool changing;
 
     private void Update()
     {
@@ -15,5 +18,14 @@ public class SoundManager : MonoBehaviour
     {
         if (key != null && !key.Equals("")) Options.Instance.setVolume(key, gameObject.GetComponent<Slider>().value);
         else Options.Instance.resetAllVolumes();
+    }
+
+    public void OnPointerUp(PointerEventData data)
+    {
+        AudioBuddy.Play("button_2", Options.Instance.EffectVolume);
+        if (!key.Equals("Aviation_EffectVolume"))
+        {
+            MusicPlayer.Instance.Speaker = AudioBuddy.Play("Reaching the Sky - Menü", Options.Instance.MusicVolume);
+        }
     }
 }

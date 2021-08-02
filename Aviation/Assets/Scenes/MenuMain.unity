@@ -3912,6 +3912,7 @@ GameObject:
   - component: {fileID: 2103575702}
   - component: {fileID: 2103575701}
   - component: {fileID: 2103575704}
+  - component: {fileID: 2103575705}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -3979,3 +3980,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5917e885171c32444aa7ee47da0ca72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2103575705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103575700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8fbe875dcc61b4c8be77e58c52e954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackName: "Reaching the Sky - Men\xFC"

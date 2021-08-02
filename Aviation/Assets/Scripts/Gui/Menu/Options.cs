@@ -12,7 +12,7 @@ public class Options
     private Dictionary<string, float> initVolume;
     private Dictionary<string, float> currentVolume;
     public float MusicVolume { get { return currentVolume["Aviation_MusicVolume"] / 100 * currentVolume["Aviation_MasterVolume"] / 100; } }
-    public float EffectVolume { get { return currentVolume["Aviation_EffectVolume"] / 100 * currentVolume["Aviation_EffectVolume"] / 100; } }
+    public float EffectVolume { get { return currentVolume["Aviation_EffectVolume"] / 100 * currentVolume["Aviation_MasterVolume"] / 100; } }
     public float MasterVolume { get { return currentVolume["Aviation_EffectVolume"] / 100; } }
 
     private static Options instance;
