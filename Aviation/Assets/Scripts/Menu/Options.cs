@@ -3,22 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Bindings
+public class Options
 {
     private Dictionary<string, string> initConToKey;
     private Dictionary<string, string> currentConToKey;
     private InputActionAsset c;
-    private static Bindings instance;
-    public static Bindings Instance { 
+
+    private Dictionary<string, float> initVolume;
+    private Dictionary<string, float> currentVolume;
+    public float MusicVolume { get { return currentVolume["Aviation_MusicVolume"] / 100 * currentVolume["Aviation_MasterVolume"] / 100; } }
+    public float EffectVolume { get { return currentVolume["Aviation_EffectVolume"] / 100 * currentVolume["Aviation_EffectVolume"] / 100; } }
+    public float MasterVolume { get { return currentVolume["Aviation_EffectVolume"] / 100; } }
+
+    private static Options instance;
+    public static Options Instance { 
         get {
-            if (instance == null) instance = new Bindings();
+            if (instance == null) instance = new Options();
             return instance;
     } }
 
-    public Bindings()
+    public Options()
     {
         initConToKey = new Dictionary<string, string>();
         currentConToKey = new Dictionary<string, string>();
+        initVolume = new Dictionary<string, float>();
+        currentVolume = new Dictionary<string, float>();
+
+        initVolume.Add("Aviation_MasterVolume", PlayerPrefs.HasKey("Aviation_MasterVolume") ? PlayerPrefs.GetFloat("Aviation_MasterVolume") : 50);
+        initVolume.Add("Aviation_EffectVolume", PlayerPrefs.HasKey("Aviation_EffectVolume") ? PlayerPrefs.GetFloat("Aviation_EffectVolume") : 100);
+        initVolume.Add("Aviation_MusicVolume", PlayerPrefs.HasKey("Aviation_MusicVolume") ? PlayerPrefs.GetFloat("Aviation_MusicVolume") : 100);
+        currentVolume.Add("Aviation_MasterVolume", PlayerPrefs.HasKey("Aviation_MasterVolume") ? PlayerPrefs.GetFloat("Aviation_MasterVolume") : 50);
+        currentVolume.Add("Aviation_EffectVolume", PlayerPrefs.HasKey("Aviation_EffectVolume") ? PlayerPrefs.GetFloat("Aviation_EffectVolume") : 100);
+        currentVolume.Add("Aviation_MusicVolume", PlayerPrefs.HasKey("Aviation_MusicVolume") ? PlayerPrefs.GetFloat("Aviation_MusicVolume") : 100);
     }
 
     public bool setKey(string control, string path, string actionName)
@@ -38,7 +54,7 @@ public class Bindings
             ac.ChangeBindingWithPath(currentConToKey[control]).WithPath(path);
             currentConToKey[control] = path;
         }
-        writeToPlayerPrefs();
+        writeToControlsPlayerPrefs();
         return true;
     }
     public void resetKey(string control, string actionName)
@@ -59,10 +75,10 @@ public class Bindings
             ac.ChangeBindingWithPath(currentConToKey[control]).WithPath(initConToKey[control]);
             currentConToKey[control] = initConToKey[control];
         }
-        writeToPlayerPrefs();
+        writeToControlsPlayerPrefs();
     }
 
-    public void resetAll()
+    public void resetAllKeys()
     {
         InputAction ac = c.FindAction("Movement");
         foreach (InputBinding bc in c.FindActionMap("Gameplay").FindAction("Movement").bindings)
@@ -76,7 +92,7 @@ public class Bindings
         ac = c.FindAction("Shoot");
         ac.ChangeBinding(0).WithPath(initConToKey[stripToEmpty(ac.bindings[0].name)]);
         currentConToKey[stripToEmpty(ac.bindings[0].name)] = initConToKey[stripToEmpty(ac.bindings[0].name)];
-        writeToPlayerPrefs();
+        writeToControlsPlayerPrefs();
     }
 
     public string currentValueOfControl(string control)
@@ -102,8 +118,36 @@ public class Bindings
         currentConToKey.Add(stripToEmpty(c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].name), c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].path);
     }
 
-    private void writeToPlayerPrefs()
+    private void writeToControlsPlayerPrefs()
     {
-        PlayerPrefs.SetString("Controls", c.ToJson());
+        PlayerPrefs.DeleteKey("Controls");
+        PlayerPrefs.SetString("Aviation_Controls", c.ToJson());
+    }
+
+    public void setVolume(string key, float value)
+    {
+        if (currentVolume.ContainsKey(key))
+        {
+            currentVolume[key] = value;
+            PlayerPrefs.SetFloat(key, value);
+        }
+    }
+
+    public float getVolumeByKey(string key)
+    {
+        if (currentVolume.ContainsKey(key))
+        {
+            return currentVolume[key];
+        }
+        return 0;
+    }
+
+    public void resetAllVolumes()
+    {
+        foreach(string key in initVolume.Keys)
+        {
+            currentVolume[key] = initVolume[key];
+            PlayerPrefs.SetFloat(key, initVolume[key]);
+        }
     }
 }

@@ -8,7 +8,7 @@ public class Init : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("Controls")) controls.LoadFromJson(PlayerPrefs.GetString("Controls"));
-        Bindings.Instance.setControls(controls);
+        if (PlayerPrefs.HasKey("Aviation_Controls")) controls.LoadFromJson(PlayerPrefs.GetString("Aviation_Controls"));
+        Options.Instance.setControls(controls);
     }
 }

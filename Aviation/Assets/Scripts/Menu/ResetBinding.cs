@@ -11,7 +11,7 @@ public class ResetBinding : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (control.Equals("")) Bindings.Instance.resetAll();
-        else Bindings.Instance.resetKey(control, actionName);
+        if (control.Equals("")) Options.Instance.resetAllKeys();
+        else Options.Instance.resetKey(control, actionName);
     }
 }

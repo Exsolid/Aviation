@@ -21,7 +21,7 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
     }
     public void OnGUI()
     {
-        textChild.text = alternateText.Equals("") ? returnKeyCode(Bindings.Instance.currentValueOfControl(control)) : alternateText;
+        textChild.text = alternateText.Equals("") ? returnKeyCode(Options.Instance.currentValueOfControl(control)) : alternateText;
         Event e = Event.current;
         if (e != null && e.type.Equals(EventType.KeyDown) && e.keyCode != KeyCode.None)
             keyPress = e.keyCode.ToString(); isKeyboard = true;
@@ -58,7 +58,7 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
         alternateText = "";
         string keyPath = keyOrMouseCode + key;
         Dictionary<string, string> temp = new Dictionary<string, string>();
-        if(!Bindings.Instance.setKey(control, keyPath, actionName))
+        if(!Options.Instance.setKey(control, keyPath, actionName))
         {
             alternateText = "Input invalid";
             StartCoroutine(resetText());
