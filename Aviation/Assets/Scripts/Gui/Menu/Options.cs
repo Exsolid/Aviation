@@ -107,15 +107,18 @@ public class Options
 
     public void setControls(InputActionAsset c)
     {
-        this.c = c;
-
-        foreach (InputBinding bc in c.FindActionMap("Gameplay").FindAction("Movement").bindings)
+        if(this.c == null)
         {
-            initConToKey.Add(bc.name, bc.path);
-            currentConToKey.Add(bc.name, bc.path);
+            this.c = c;
+
+            foreach (InputBinding bc in c.FindActionMap("Gameplay").FindAction("Movement").bindings)
+            {
+                initConToKey.Add(bc.name, bc.path);
+                currentConToKey.Add(bc.name, bc.path);
+            }
+            initConToKey.Add(stripToEmpty(c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].name), c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].path);
+            currentConToKey.Add(stripToEmpty(c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].name), c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].path);
         }
-        initConToKey.Add(stripToEmpty(c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].name), c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].path);
-        currentConToKey.Add(stripToEmpty(c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].name), c.FindActionMap("Gameplay").FindAction("Shoot").bindings[0].path);
     }
 
     private void writeToControlsPlayerPrefs()

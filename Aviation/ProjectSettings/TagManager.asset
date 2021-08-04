@@ -7,6 +7,7 @@ TagManager:
   - Collectable
   - StatusChanger
   - Bullet
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX

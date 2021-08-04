@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour, IPointerUpHandler
         AudioBuddy.Play("button_2", Options.Instance.EffectVolume);
         if (!key.Equals("Aviation_EffectVolume"))
         {
-            MusicPlayer.Instance.Speaker = AudioBuddy.Play("Reaching the Sky - Menü", Options.Instance.MusicVolume);
+            GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<MusicPlayer>().Speaker = AudioBuddy.Play("Reaching the Sky - Menü", Options.Instance.MusicVolume);
         }
     }
 }

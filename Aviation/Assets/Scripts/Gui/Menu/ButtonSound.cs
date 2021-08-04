@@ -1,0 +1,11 @@
+using AudioBuddyTool;
+using UnityEngine;
+using UnityEngine.EventSystems;
+public class ButtonSound : MonoBehaviour, IPointerUpHandler
+{
+    public void OnPointerUp(PointerEventData data)
+    {
+        AudioBuddy.Play("button_2", Options.Instance.EffectVolume);
+    }
+} 
+

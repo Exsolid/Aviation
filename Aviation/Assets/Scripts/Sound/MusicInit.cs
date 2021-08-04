@@ -8,6 +8,6 @@ public class MusicInit : MonoBehaviour
 
     private void Start()
     {
-        MusicPlayer.Instance.Speaker = AudioBuddy.Play(trackName, Options.Instance.MusicVolume);
+        GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<MusicPlayer>().Speaker = AudioBuddy.Play(trackName, Options.Instance.MusicVolume);
     }
 }

@@ -1,14 +1,34 @@
 using AudioBuddyTool;
+using UnityEngine;
 using System;
-public class MusicPlayer
+public class MusicPlayer: MonoBehaviour
 {
     private AudioBuddySpeaker speaker;
-    public AudioBuddySpeaker Speaker { get { return speaker; } set { if (speaker != null) speaker.SourcePlayer.Stop(); speaker = value; } }
-    private static MusicPlayer instance;
-    public static MusicPlayer Instance { get { if (instance == null) instance = new MusicPlayer(); return instance; } }
-
-    public MusicPlayer()
+    public AudioBuddySpeaker Speaker { 
+        get { return speaker; } 
+        set {
+            if (speaker == null) speaker = value;
+            else if (!value.SourceSound.Equals(speaker.SourceSound))
+            {
+                speaker.SourcePlayer.Stop();
+                speaker = value;
+            }else if (value.SourceSound.Equals(speaker.SourceSound))
+            {
+                value.SourcePlayer.Stop();
+            }
+        }
+    }
+    private void Awake()
     {
-
+        int numMusicPlayers =  FindObjectsOfType<MusicPlayer>().Length;
+        if (numMusicPlayers != 1)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(AudioBuddy.Manager);
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }
