@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using AudioBuddyTool;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject player;
@@ -83,6 +83,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if ((hitRight.transform != null || hitLeft.transform != null) && shootTimer > shootTiming)
         {
+            AudioBuddy.Play("gun_cut", Options.Instance.EffectVolume);
             shootTimer = 0;
             if (gunPosLeft != null && bulletPrefab != null)
             {
@@ -178,6 +179,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
         TakeDamage(2);
     }
 }

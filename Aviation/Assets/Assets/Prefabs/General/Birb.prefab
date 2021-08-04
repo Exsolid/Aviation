@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &8276067063664498596
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6985405677807810659}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 7.4203606, y: 0.99074745, z: 5.40843}
-  m_Center: {x: -0.030160904, y: -0.004626274, z: -0.7480917}
 --- !u!54 &6803298928488281338
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29,6 +16,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &8276067063664498596
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985405677807810659}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.4203606, y: 8.506951, z: 5.40843}
+  m_Center: {x: -0.030160904, y: -0.20242167, z: -0.7480917}
 --- !u!114 &6492987577361848660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +52,7 @@ PrefabInstance:
     - target: {fileID: 7472005774336691404, guid: e623cae9dd3218e4faf70c98a07dd36d,
         type: 3}
       propertyPath: m_Name
-      value: Vogel Prefab
+      value: Birb
       objectReference: {fileID: 0}
     - target: {fileID: 7852647197101381238, guid: e623cae9dd3218e4faf70c98a07dd36d,
         type: 3}

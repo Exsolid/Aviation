@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using AudioBuddyTool;
 public class PlayerBehaviourScript : MonoBehaviour
 {
     [Header("References")]
@@ -103,6 +104,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         if (shootTimer > shootTiming)
         {
+            AudioBuddy.Play("gun_cut", Options.Instance.EffectVolume);
             shootTimer = 0;
 
             if (gunPosLeft != null && bulletPrefab != null)
@@ -134,6 +136,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
         TakeDamage(2);
     }
 

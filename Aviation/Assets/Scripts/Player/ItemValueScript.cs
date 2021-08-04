@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AudioBuddyTool;
 
 public class ItemValueScript : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ItemValueScript : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            AudioBuddy.Play("einsammeln_5", Options.Instance.EffectVolume);
             ItemCountScript.instance.ChangeCount(itemValue);
             Destroy(gameObject);
         }

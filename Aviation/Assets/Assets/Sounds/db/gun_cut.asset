@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdbf709625875dc4fad66bd52f19cb20, type: 3}
-  m_Name: button_2
+  m_Name: gun_cut
   m_EditorClassIdentifier: 
   Volume: 1
   Pitch: 1
-  File: {fileID: 8300000, guid: 06e6bde8bbfd73648a7c6713f7b1437f, type: 3}
+  File: {fileID: 8300000, guid: 22de40ae838f8c943ba624330c046701, type: 3}
   IsLoop: 0
   CustomName: 0

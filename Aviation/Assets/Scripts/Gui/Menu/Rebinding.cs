@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using AudioBuddyTool;
 public class Rebinding : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private string control;
@@ -48,6 +49,7 @@ public class Rebinding : MonoBehaviour, IPointerClickHandler
 
         if (!isSetting)
         {
+            AudioBuddy.Play("button_2", Options.Instance.EffectVolume);
             StartCoroutine(setEvent());
             isSetting = true;
         }

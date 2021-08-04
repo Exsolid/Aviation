@@ -14,6 +14,7 @@ public class MusicPlayer: MonoBehaviour
                 speaker = value;
             }else if (value.SourceSound.Equals(speaker.SourceSound))
             {
+                speaker.SourcePlayer.volume = Options.Instance.MusicVolume;
                 value.SourcePlayer.Stop();
             }
         }
