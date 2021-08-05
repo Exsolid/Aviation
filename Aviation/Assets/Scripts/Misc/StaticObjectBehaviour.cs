@@ -26,6 +26,7 @@ public class StaticObjectBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
         Destroy(gameObject);
     }
 }

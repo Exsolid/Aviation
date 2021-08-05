@@ -54,6 +54,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Birb
       objectReference: {fileID: 0}
+    - target: {fileID: 7472005774336691404, guid: e623cae9dd3218e4faf70c98a07dd36d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Birb
+      objectReference: {fileID: 0}
     - target: {fileID: 7852647197101381238, guid: e623cae9dd3218e4faf70c98a07dd36d,
         type: 3}
       propertyPath: m_RootOrder

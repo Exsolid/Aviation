@@ -162,7 +162,6 @@ public class EnemyBehaviour : MonoBehaviour
             return current;
         }
         current = toSet*(Mathf.Abs(toSet) / (Mathf.Abs(current)*1.4f + Mathf.Abs(toSet)));
-        Debug.Log(current + " after");
         return current;
     }
 

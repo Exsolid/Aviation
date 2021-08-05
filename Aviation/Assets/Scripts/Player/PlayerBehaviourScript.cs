@@ -136,6 +136,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
         AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
         TakeDamage(2);
     }

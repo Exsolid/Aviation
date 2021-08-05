@@ -8,6 +8,7 @@ TagManager:
   - StatusChanger
   - Bullet
   - MusicPlayer
+  - Birb
   layers:
   - Default
   - TransparentFX
