@@ -17,8 +17,6 @@ public class PlayerBehaviourScript : MonoBehaviour
     public HealthBar healthBar;
     [SerializeField] private PlayerInput playerInput = null;
     [SerializeField] private CharacterController controller = null;
-    [SerializeField] private GameObject fuelArrow;
-    [SerializeField] private GameObject speedArrow;
 
     [Header("Settings")]
     [SerializeField] private float movementSpeed = 20;
@@ -57,8 +55,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         Rotation = true;
         cameraTransform = Camera.main.transform;
         defSpeed = movementSpeed;
-        fuelArrow.GetComponent<ArrowRotation>().MaxValue = maxFuel;
-        speedArrow.GetComponent<ArrowRotation>().MaxValue = defSpeed;
         scaler = gameObject.GetComponent<Scaler>();
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
@@ -83,7 +79,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
         // Player can't leave camera view
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x,  scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay/2 - scaler.BorderSizeRight);
+        pos.x = Mathf.Clamp(pos.x, - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay/2 - scaler.BorderSizeRight);
         pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay/2, maxDisplayHeightAtGameplay/2);
         transform.position = pos;
 
@@ -125,7 +121,6 @@ public class PlayerBehaviourScript : MonoBehaviour
     private void FuelConsumption(float loss)
     {
         currentFuel -= loss;
-        fuelArrow.GetComponent<ArrowRotation>().CurrentValue = currentFuel;
     }
 
     private void TakeDamage(int damage)
@@ -146,7 +141,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         float diff = movementSpeed / 5 * -1;
         movementSpeed += diff;
         StartCoroutine(resetSpeed(5, diff));
-        speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
     }
 
     public void increaseSpeed()
@@ -154,7 +148,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         float diff = defSpeed * 2/3;
         movementSpeed += diff;
         StartCoroutine(resetSpeed(5, diff));
-        speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
     }
 
     public IEnumerator resetSpeed(float timeInSec, float diff)
@@ -162,6 +155,5 @@ public class PlayerBehaviourScript : MonoBehaviour
         yield return new WaitForSeconds(timeInSec);
         diff *= -1;
         movementSpeed += diff;
-        speedArrow.GetComponent<ArrowRotation>().CurrentValue = movementSpeed;
     }
 }

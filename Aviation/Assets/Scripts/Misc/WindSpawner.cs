@@ -34,7 +34,7 @@ public class WindSpawner : MonoBehaviour
     private void spawnObject()
     {
         System.Random rand = new System.Random();
-        Vector3 pos = new Vector3(Random.Range(scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2+5, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight)-5, 0, Random.Range(maxDisplayHeightAtGameplay / 2, maxDisplayHeightAtGameplay / -2));
+        Vector3 pos = new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2+5, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight)-5, 0, Random.Range(maxDisplayHeightAtGameplay / 2, maxDisplayHeightAtGameplay / -2));
         GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(90, 90, 0));
         StartCoroutine(deleteEffect(8, obj));
 

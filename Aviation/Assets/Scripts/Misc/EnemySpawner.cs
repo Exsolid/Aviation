@@ -34,10 +34,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void spawnEnemy()
     {
-        GameObject obj = GameObject.Instantiate(enemyToSpawn, new Vector3(Random.Range(scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, -maxDisplayHeightAtGameplay), Quaternion.Euler(0, 0, 0));
+        GameObject obj = GameObject.Instantiate(enemyToSpawn, new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, -maxDisplayHeightAtGameplay), Quaternion.Euler(0, 0, 0));
         EnemyBehaviour enBe = obj.GetComponent<EnemyBehaviour>();
         Scaler scl = obj.AddComponent<Scaler>();
-        scl.LeftGui = scaler.LeftGui;
         scl.RightGui = scaler.RightGui;
         scl.Canvas = scaler.Canvas;
         enBe.Player = player;

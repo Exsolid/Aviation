@@ -49,12 +49,11 @@ public class CollectableSpawner : MonoBehaviour
     }
     private void spawnObject()
     {
-        Vector3 pos = new Vector3(Random.Range(scaler.BorderSizeLeft - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay);
+        Vector3 pos = new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay);
         GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         movement.Speed = Mathf.Abs(movement.Speed) * -1;
         Scaler scl = obj.AddComponent<Scaler>();
-        scl.LeftGui = scaler.LeftGui;
         scl.RightGui = scaler.RightGui;
         scl.Canvas = scaler.Canvas;
         if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
@@ -63,7 +62,6 @@ public class CollectableSpawner : MonoBehaviour
             movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * -1;
             scl = objCloud.AddComponent<Scaler>();
-            scl.LeftGui = scaler.LeftGui;
             scl.RightGui = scaler.RightGui;
             scl.Canvas = scaler.Canvas;
         }
