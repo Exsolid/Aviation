@@ -28,7 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
     private RaycastHit hitRight;
 
     public HealthBar healthBar;
-    public int maxHealth = 20;
+    public int maxHealth;
     public int currentHealth;
 
     [SerializeField] private float durationOfStay;
@@ -71,6 +71,11 @@ public class EnemyBehaviour : MonoBehaviour
         shootTimer += Time.deltaTime;
         shoot();
         moveBasedOnDistance(xDistanceToPlayer, zDistanceToPlayer, zDistanceToPlayer < 0);
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator stayTimer()
@@ -180,5 +185,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
         TakeDamage(2);
+        AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
     }
 }
