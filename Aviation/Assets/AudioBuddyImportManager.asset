@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdbf709625875dc4fad66bd52f19cb20, type: 3}
-  m_Name: "Reaching the Sky - Men\xFC"
+  m_Script: {fileID: 11500000, guid: 1c75566890060834ea4dad30fa52b8b8, type: 3}
+  m_Name: AudioBuddyImportManager
   m_EditorClassIdentifier: 
-  Volume: 1
-  Pitch: 1
-  File: {fileID: 8300000, guid: acd708ba8a1269e4a82ca6933e84be8c, type: 3}
-  IsLoop: 0
-  CustomName: 0
+  ReferenceManager: {fileID: 0}
+  CollectionAddress: Paste the path to where you want AudioBuddy to build the database
+    in here
+  _abObjectCollection: []
+  Linked: 0

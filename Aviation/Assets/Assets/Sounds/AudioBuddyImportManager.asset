@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c75566890060834ea4dad30fa52b8b8, type: 3}
   m_Name: AudioBuddyImportManager
   m_EditorClassIdentifier: 
+  ReferenceManager: {fileID: 0}
   CollectionAddress: Assets/Assets/Sounds/db
   _abObjectCollection:
   - {fileID: 11400000, guid: 970c498ce538daf4abb8d9843a89eaf5, type: 2}
