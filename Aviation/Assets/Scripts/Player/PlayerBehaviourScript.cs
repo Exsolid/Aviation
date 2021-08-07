@@ -123,7 +123,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         currentFuel -= loss;
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
@@ -131,9 +131,12 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!collision.gameObject.tag.Equals("Collectable"))
+        {
+            AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
+            TakeDamage(2);
+        }
         AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
-        AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
-        TakeDamage(2);
     }
 
     public void reduceSpeed()

@@ -9,6 +9,8 @@ public class AviationEventManager
 
     public event Action onBirdKill;
     public event Action onEnemyKill;
+    public event Action onItemPickup;
+
     public AviationEventManager()
     {
     }
@@ -16,10 +18,11 @@ public class AviationEventManager
     public void onCollision(GameObject ori, GameObject collisionObj)
     {
         if (LayerMask.LayerToName(ori.layer).Equals("Player") && collisionObj.tag.Equals("Birb")) BirdKill(collisionObj);
-        if (LayerMask.LayerToName(collisionObj.layer).Equals("Enemy") && collisionObj.gameObject.GetComponent<EnemyBehaviour>() != null && collisionObj.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0)
+        else if (LayerMask.LayerToName(collisionObj.layer).Equals("Enemy") && collisionObj.gameObject.GetComponent<EnemyBehaviour>() != null && collisionObj.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0)
         {
             EnemyKill(collisionObj);
         }
+        else if (ori.tag.Equals("Collectable") && collisionObj.tag.Equals("Player")) ItemPickup(ori);
     }
 
     private void BirdKill(GameObject obj)
@@ -35,6 +38,14 @@ public class AviationEventManager
         if (onEnemyKill != null && obj != null)
         {
             onEnemyKill();
+        }
+    }
+
+    private void ItemPickup(GameObject obj)
+    {
+        if (onItemPickup != null && obj != null)
+        {
+            onItemPickup();
         }
     }
 }

@@ -175,7 +175,7 @@ public class EnemyBehaviour : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
@@ -183,8 +183,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
-        TakeDamage(2);
+        if (!collision.gameObject.tag.Equals("Collectable"))
+        {
+            AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
+            TakeDamage(2);
+        }
         AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
     }
 }
