@@ -10,6 +10,7 @@ public class AviationEventManager
     public event Action onBirdKill;
     public event Action onEnemyKill;
     public event Action<int> onItemPickup;
+    public event Action<GameObject> onEnemySpawn;
 
     public AviationEventManager()
     {
@@ -46,6 +47,14 @@ public class AviationEventManager
         if (onItemPickup != null && obj != null)
         {
             onItemPickup(obj.GetComponent<ItemID>().id);
+        }
+    }
+
+    public void EnemySpawn(GameObject obj)
+    {
+        if (onEnemySpawn != null && obj != null)
+        {
+            onEnemySpawn(obj);
         }
     }
 }
