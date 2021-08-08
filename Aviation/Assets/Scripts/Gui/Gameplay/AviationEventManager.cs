@@ -9,7 +9,7 @@ public class AviationEventManager
 
     public event Action onBirdKill;
     public event Action onEnemyKill;
-    public event Action onItemPickup;
+    public event Action<int> onItemPickup;
 
     public AviationEventManager()
     {
@@ -45,7 +45,7 @@ public class AviationEventManager
     {
         if (onItemPickup != null && obj != null)
         {
-            onItemPickup();
+            onItemPickup(obj.GetComponent<ItemID>().id);
         }
     }
 }
