@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdbf709625875dc4fad66bd52f19cb20, type: 3}
   m_Name: The Great Battle - Spitfire
   m_EditorClassIdentifier: 
-  Volume: 1
+  Volume: 0.67
   Pitch: 1
   File: {fileID: 8300000, guid: 85700f5f8de86a741b7e88affb51f87a, type: 3}
   IsLoop: 0
