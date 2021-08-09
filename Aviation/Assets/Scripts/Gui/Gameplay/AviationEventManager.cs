@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using UnityEngine;
+using AudioBuddyTool;
+
 public class AviationEventManager
 {
     private static AviationEventManager instance;
@@ -50,6 +52,7 @@ public class AviationEventManager
     {
         if (onItemPickup != null && obj != null)
         {
+            AudioBuddy.Play("einsammeln_5", Options.Instance.EffectVolume);
             onItemPickup(obj.GetComponent<ItemID>().id);
         }
     }
@@ -82,6 +85,7 @@ public class AviationEventManager
     {
         if (onBooster != null)
         {
+            AudioBuddy.Play("einsammeln_5", Options.Instance.EffectVolume);
             onBooster();
         }
     }
