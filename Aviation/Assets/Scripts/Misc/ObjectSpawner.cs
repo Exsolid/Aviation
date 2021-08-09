@@ -40,35 +40,38 @@ public class ObjectSpawner : MonoBehaviour
     }
     private void spawnObject()
     {
-        Vector3 pos = new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1));
-        GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
-        StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
-        if(fromBehind) obj.transform.Rotate(new Vector3(0,180,0),Space.Self);
-        movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
-        if (triangleSpawn && !isHidden)
+        Vector3 pos = new Vector3(Random.Range(-maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay * (fromBehind ? -1 : 1));
+        if (objectToSpawn != null)
         {
-            Bounds size = obj.GetComponent<Collider>().bounds;
-
-            obj = GameObject.Instantiate(objectToSpawn, pos + Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
-            movement = obj.GetComponent<StaticObjectBehaviour>();
+            GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
+            StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
             if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
             movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
-            Scaler scl = obj.AddComponent<Scaler>();
-            scl.RightGui = scaler.RightGui;
-            scl.Canvas = scaler.Canvas;
+            if (triangleSpawn && !isHidden)
+            {
+                Bounds size = obj.GetComponent<Collider>().bounds;
 
-            obj = GameObject.Instantiate(objectToSpawn, pos - Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
-            movement = obj.GetComponent<StaticObjectBehaviour>();
-            if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
-            movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
-            scl = obj.AddComponent<Scaler>();
-            scl.RightGui = scaler.RightGui;
-            scl.Canvas = scaler.Canvas;
+                obj = GameObject.Instantiate(objectToSpawn, pos + Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
+                movement = obj.GetComponent<StaticObjectBehaviour>();
+                if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
+                movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
+                Scaler scl = obj.AddComponent<Scaler>();
+                scl.RightGui = scaler.RightGui;
+                scl.Canvas = scaler.Canvas;
+
+                obj = GameObject.Instantiate(objectToSpawn, pos - Vector3.right * size.size.x - Vector3.forward * size.size.x * (invertTriangleSpawn ? -1 : 1), Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
+                movement = obj.GetComponent<StaticObjectBehaviour>();
+                if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
+                movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
+                scl = obj.AddComponent<Scaler>();
+                scl.RightGui = scaler.RightGui;
+                scl.Canvas = scaler.Canvas;
+            }
         }
         if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
         {
             GameObject objCloud = GameObject.Instantiate(cloud , pos + Vector3.up * 2, Quaternion.Euler(0, 90, 0));
-            movement = objCloud.GetComponent<StaticObjectBehaviour>();
+            StaticObjectBehaviour movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
             Scaler scl = objCloud.AddComponent<Scaler>();
             scl.RightGui = scaler.RightGui;

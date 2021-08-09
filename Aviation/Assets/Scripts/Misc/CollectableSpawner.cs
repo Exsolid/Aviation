@@ -16,8 +16,11 @@ public class CollectableSpawner : MonoBehaviour
     private float interval;
     private int counter;
     private bool start;
+
+    private List<GameObject> spawned;
+    public List<GameObject> Spawned { get { return new List<GameObject>(spawned); } }
     // Start is called before the first frame update
-    
+
     void Start()
     {
         if (cloud == null && isHidden == true) Debug.LogError(gameObject.name + ": Cant hide object without a cloud prefab!");
@@ -25,6 +28,8 @@ public class CollectableSpawner : MonoBehaviour
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
         StartCoroutine(setValues());
         scaler = gameObject.GetComponent<Scaler>();
+        AviationEventManager.Instance.onItemPickup += removeFromSpawnedByID;
+        spawned = new List<GameObject>();
     }
 
     IEnumerator setValues()
@@ -49,13 +54,14 @@ public class CollectableSpawner : MonoBehaviour
     }
     private void spawnObject()
     {
-        Vector3 pos = new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay);
+        Vector3 pos = new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay/2 +4);
         GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, 0, 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         movement.Speed = Mathf.Abs(movement.Speed) * -1;
         Scaler scl = obj.AddComponent<Scaler>();
         scl.RightGui = scaler.RightGui;
         scl.Canvas = scaler.Canvas;
+        spawned.Add(objectsToSpawn[counter]);
         if (cloud != null && isHidden == true && Random.Range(0, 100) <= cloudRatePercentage)
         {
             GameObject objCloud = GameObject.Instantiate(cloud , pos+Vector3.up*2, Quaternion.Euler(0, 90, 0));
@@ -66,5 +72,19 @@ public class CollectableSpawner : MonoBehaviour
             scl.Canvas = scaler.Canvas;
         }
         counter++;
+    }
+
+    private void removeFromSpawnedByID(int id)
+    {
+        GameObject toRemove = null;
+        foreach(GameObject obj in spawned)
+        {
+            if(obj.GetComponent<ItemID>().id == id)
+            {
+                toRemove = obj;
+                break;
+            }
+        }
+        spawned.Remove(toRemove);
     }
 }

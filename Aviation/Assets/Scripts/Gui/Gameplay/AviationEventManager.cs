@@ -12,6 +12,10 @@ public class AviationEventManager
     public event Action<int> onItemPickup;
     public event Action<GameObject> onEnemySpawn;
 
+    public event Action onCloudEnter;
+    public event Action onCloudExit;
+    public event Action onBooster;
+
     public AviationEventManager()
     {
     }
@@ -55,6 +59,30 @@ public class AviationEventManager
         if (onEnemySpawn != null && obj != null)
         {
             onEnemySpawn(obj);
+        }
+    }
+
+    public void CloudEnter()
+    {
+        if (onCloudEnter != null)
+        {
+            onCloudEnter();
+        }
+    }
+
+    public void CloudExit()
+    {
+        if (onCloudExit != null)
+        {
+            onCloudExit();
+        }
+    }
+
+    public void Booster()
+    {
+        if (onBooster != null)
+        {
+            onBooster();
         }
     }
 }
