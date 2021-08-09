@@ -178,7 +178,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        healthBar.reduceHealth(damage);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -20,9 +20,9 @@ public class HealthBar : MonoBehaviour
     }
 
     //slider reacts to value change and changes color depending on value
-    public void SetHealth(int health)
+    public void reduceHealth(int health)
     {
-        slider.value = health;
+        slider.value -= health;
         
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }

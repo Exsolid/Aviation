@@ -21,10 +21,9 @@ public class PlayerBehaviourScript : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float movementSpeed = 20;
     private bool Rotation;
-    public int maxHealth = 20;
+    public int maxHealth;
     public int currentHealth;
-    public float maxFuel = 20;
-    public float currentFuel;
+    public int fuel;
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
     private readonly float lockPos = 0f;
@@ -48,9 +47,8 @@ public class PlayerBehaviourScript : MonoBehaviour
         playerrb = GetComponent<Rigidbody>();
         playerrb.useGravity = false;
         playerrb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY;
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
-        currentFuel = maxFuel;
+        currentHealth = maxHealth+ fuel;
+        healthBar.SetMaxHealth(fuel+maxHealth);
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         Rotation = true;
         cameraTransform = Camera.main.transform;
@@ -90,7 +88,7 @@ public class PlayerBehaviourScript : MonoBehaviour
             timeForFuelLoss = Time.time + timeBetweenFuelLoss;
         }
 
-        if (currentFuel <= 0 || currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             SceneManager.LoadScene("GameOverScreen");
         }
@@ -120,13 +118,14 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void FuelConsumption(float loss)
     {
-        currentFuel -= loss;
+        currentHealth -= (int)loss;
+        healthBar.reduceHealth((int)loss);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        healthBar.reduceHealth(damage);
     }
 
     private void OnCollisionEnter(Collision collision)
