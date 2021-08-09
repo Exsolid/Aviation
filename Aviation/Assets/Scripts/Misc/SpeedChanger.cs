@@ -26,6 +26,9 @@ public class SpeedChanger : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        AviationEventManager.Instance.CloudExit();
+        if (other.gameObject.CompareTag("Player"))
+        {
+            AviationEventManager.Instance.CloudExit();
+        }
     }
 }
