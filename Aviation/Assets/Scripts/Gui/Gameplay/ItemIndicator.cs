@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BoostIndicator : MonoBehaviour
+public class ItemIndicator : MonoBehaviour
 {
     private bool listen;
     private bool blink;
     private float timer;
+    private HashSet<int> ids;
     [SerializeField] private float blinkInterval;
     void Start()
     {
         AviationEventManager.Instance.onCloudEnter += startListen;
         AviationEventManager.Instance.onCloudExit += stopListen;
-        AviationEventManager.Instance.onBooster += indicate;
+        AviationEventManager.Instance.onItemPickup += indicate;
         timer = blinkInterval;
+        ids = new HashSet<int>();
     }
 
     private void Update()
@@ -40,12 +42,16 @@ public class BoostIndicator : MonoBehaviour
         listen = false;
     }
 
-    private void indicate()
+    private void indicate(int i)
     {
-        if (listen)
+        if (!ids.Contains(i))
         {
-            blink = true;
-            StartCoroutine(blinkTimer());
+            if (listen)
+            {
+                blink = true;
+                StartCoroutine(blinkTimer());
+            }
+            ids.Add(i);
         }
     }
 
