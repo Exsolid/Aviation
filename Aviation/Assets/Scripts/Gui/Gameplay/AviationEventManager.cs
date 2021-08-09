@@ -40,10 +40,8 @@ public class AviationEventManager
 
     private void EnemyKill(GameObject obj)
     {
-        Debug.Log("1");
         if (onEnemyKill != null && obj != null)
         {
-            Debug.Log("2");
             onEnemyKill();
         }
     }

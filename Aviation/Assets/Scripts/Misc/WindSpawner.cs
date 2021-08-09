@@ -23,7 +23,6 @@ public class WindSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         timer += Time.deltaTime;
         if (timer > interval)
         {

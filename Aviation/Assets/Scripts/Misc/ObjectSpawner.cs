@@ -32,7 +32,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         timer += Time.deltaTime;
         int per = Random.Range(0, 100);
-        if (timer > interval && per <= spawnRatePercentage)
+        if (timer > interval && per >= spawnRatePercentage)
         {
             spawnObject();
             timer = 0;

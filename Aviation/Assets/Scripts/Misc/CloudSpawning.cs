@@ -30,8 +30,10 @@ public class CloudSpawning : MonoBehaviour
     {
         timer += Time.deltaTime;
         int per = Random.Range(0, 100);
-        if (timer > interval && per <= spawnRatePercentage)
+        Debug.Log(per);
+        if (timer > interval && per >= spawnRatePercentage)
         {
+            Debug.Log(per);
             gameObjects.AddRange(collSpawner.Spawned);
             GameObject toSpawn = null;
             int itemPer = Random.Range(0, 100);
