@@ -35,7 +35,7 @@ public class CollectableSpawner : MonoBehaviour
     IEnumerator setValues()
     {
         yield return new WaitForEndOfFrame();
-        interval = (player.GetComponent<PlayerBehaviourScript>().fuel * player.GetComponent<PlayerBehaviourScript>().TimeBetweenFuelLoss - 10) / objectsToSpawn.Count;
+        interval = (player.GetComponent<PlayerBehaviourScript>().fuel * player.GetComponent<PlayerBehaviourScript>().TimeBetweenFuelLoss) / objectsToSpawn.Count;
         timer = interval / 5;
         start = true;
     }

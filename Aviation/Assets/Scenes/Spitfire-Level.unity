@@ -844,8 +844,9 @@ GameObject:
   - component: {fileID: 437710566}
   - component: {fileID: 437710565}
   - component: {fileID: 437710568}
-  - component: {fileID: 437710569}
   - component: {fileID: 437710570}
+  - component: {fileID: 437710569}
+  - component: {fileID: 437710571}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -938,6 +939,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5addbb1587eced6469d3c88fdeeb9674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &437710571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437710564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e67b078ab01ee4d975e314fd8a0cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 978693850}
+  uiBirbKill: {fileID: 675809664}
+  uiEnemyKill: {fileID: 485331244}
+  enemyKillScaling: 0.3
+  birbKillScaling: 0.1
 --- !u!1 &485331244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,7 +3192,7 @@ MonoBehaviour:
   enemyToSpawn: {fileID: 7944032948346142303, guid: 53429b66891fb9046943902a12fc7857,
     type: 3}
   player: {fileID: 978693850}
-  interval: 15
+  interval: 17
   speed: 30
 --- !u!114 &1836102035
 MonoBehaviour:

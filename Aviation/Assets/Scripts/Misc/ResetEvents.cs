@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResetEvents : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         AviationEventManager.Instance.reset();
     }

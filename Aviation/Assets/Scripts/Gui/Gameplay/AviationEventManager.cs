@@ -18,6 +18,8 @@ public class AviationEventManager
     public event Action onCloudExit;
     public event Action onBooster;
 
+    public event Action onWin;
+
     public AviationEventManager()
     {
     }
@@ -100,5 +102,14 @@ public class AviationEventManager
         onCloudEnter = null;
         onCloudExit = null;
         onBooster = null;
-}
+        onWin = null;
+    }
+
+    public void Win()
+    {
+        if (onWin != null)
+        {
+            onWin();
+        }
+    }
 }

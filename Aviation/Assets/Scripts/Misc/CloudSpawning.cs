@@ -35,8 +35,8 @@ public class CloudSpawning : MonoBehaviour
             gameObjects.AddRange(collSpawner.Spawned);
             GameObject toSpawn = null;
             int itemPer = Random.Range(0, 100);
-            if (gameObjects.Count == 0 || itemPer >= 0 && itemPer < 30) toSpawn = booster;
-            else if(itemPer >= 30 && itemPer < 70) toSpawn = gameObjects[Random.Range(0, gameObjects.Count - 1)];
+            if (itemPer >= 0 && itemPer < 30) toSpawn = booster;
+            else if(gameObjects.Count > 0 && itemPer >= 30 && itemPer < 70) toSpawn = gameObjects[Random.Range(0, gameObjects.Count - 1)];
             spawnObject(toSpawn);
             timer = 0;
             gameObjects.Clear();

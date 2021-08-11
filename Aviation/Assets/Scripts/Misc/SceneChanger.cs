@@ -15,7 +15,11 @@ public class SceneChanger : MonoBehaviour
     private void countItem(int id)
     {
         ids.Add(id);
-        if(ids.Count >= 5)
+        Debug.Log(ids.Count);
+        if (ids.Count >= 5)
+        {
+            AviationEventManager.Instance.Win();
             SceneManager.LoadScene("WinningScreen");
+        }
     }
 }
