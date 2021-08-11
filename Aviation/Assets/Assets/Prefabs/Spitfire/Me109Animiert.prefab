@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  speed: 4000
+  speed: 3500
   minDistanceToPlayer: 6.5
   enableRotationOnMove: 1
   gunPosLeft: {fileID: 2064440473}
@@ -219,7 +219,7 @@ PrefabInstance:
     - target: {fileID: 1414217742714135534, guid: 24d6f0b9a164b0c498d6be86d531cda3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.1
+      value: -8.02
       objectReference: {fileID: 0}
     - target: {fileID: 1414217742714135534, guid: 24d6f0b9a164b0c498d6be86d531cda3,
         type: 3}
@@ -244,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 1414217742714135534, guid: 24d6f0b9a164b0c498d6be86d531cda3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.03
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1414217742714135534, guid: 24d6f0b9a164b0c498d6be86d531cda3,
         type: 3}

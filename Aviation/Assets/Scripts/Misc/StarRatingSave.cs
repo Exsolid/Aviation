@@ -22,9 +22,9 @@ public class StarRatingSave : MonoBehaviour
     {
         PlayerBehaviourScript pbs = player.GetComponent<PlayerBehaviourScript>();
 
-        float healthPct = pbs.currentHealth/(pbs.maxHealth * 0.7f);
+        float healthPct = pbs.currentHealth/(pbs.maxHealth * 0.5f);
         float extra = (birbKillScaling * uiBirbKill.GetComponent<BirdKillCounter>().Count + enemyKillScaling * uiEnemyKill.GetComponent<EnemyKillCounter>().Count)/ (pbs.maxHealth * 1f);
-        if(!PlayerPrefs.HasKey("Aviation_SpitfireStars") || PlayerPrefs.GetInt("Aviation_SpitfireStars") < (int)Math.Floor(extra + healthPct)) PlayerPrefs.SetInt("Aviation_SpitfireStars",(int) Math.Floor(extra+healthPct));
-        PlayerPrefs.SetInt("Aviation_SpitfireStarsCurrent", (int)Math.Floor(extra + healthPct));
+        if(!PlayerPrefs.HasKey("Aviation_SpitfireStars") || PlayerPrefs.GetInt("Aviation_SpitfireStars") < (int)Math.Ceiling(extra + healthPct)) PlayerPrefs.SetInt("Aviation_SpitfireStars",(int) Math.Ceiling(extra+healthPct));
+        PlayerPrefs.SetInt("Aviation_SpitfireStarsCurrent", (int)Math.Ceiling(extra + healthPct));
     }
 }

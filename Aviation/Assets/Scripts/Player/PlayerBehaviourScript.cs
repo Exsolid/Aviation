@@ -12,23 +12,20 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField] private Transform gunPosLeft;
     [SerializeField] private Transform gunPosRight;
     [SerializeField] private GameObject bulletPrefab;
-    private GameObject LeftGun;
-    private GameObject RightGun;
     public HealthBar healthBar;
     [SerializeField] private PlayerInput playerInput = null;
     [SerializeField] private CharacterController controller = null;
 
     [Header("Settings")]
-    [SerializeField] private float movementSpeed = 20;
-    private bool Rotation;
+    private Vector3 movementSpeed;
     public int maxHealth;
     public int currentHealth;
     public int fuel;
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
-    private readonly float lockPos = 0f;
     private Transform cameraTransform;
-    private float defSpeed;
+    [SerializeField] private float defSpeed;
+    private float defSpeedChange;
 
     public PlayerInput PlayerInput => playerInput;
 
@@ -40,19 +37,22 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField]private float shootTiming;
     private float shootTimer;
 
+    private float speedAdjustTimer;
+    private float speedAdjustTimerChange;
+    private float timer;
+
     // Start is called before the first frame update
     void Start()
     {
+        speedAdjustTimer = 0.004f;
         shootTimer = 0;
         playerrb = GetComponent<Rigidbody>();
         playerrb.useGravity = false;
-        playerrb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionY;
         currentHealth = maxHealth+ fuel;
         healthBar.SetMaxHealth(fuel+maxHealth);
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
-        Rotation = true;
         cameraTransform = Camera.main.transform;
-        defSpeed = movementSpeed;
+        movementSpeed = new Vector3(0,0,0);
         scaler = gameObject.GetComponent<Scaler>();
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
@@ -61,26 +61,20 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
         shootTimer += Time.deltaTime;
         playerInput.actions["Shoot"].performed += _ => Shoot();
         Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
-        Vector3 move = new Vector3(input.x, 0, input.y);
-        move = move.x * cameraTransform.right + move.z * cameraTransform.up;
-        move.y = 0f;
         controller.enabled = true;
-        controller.Move(Time.deltaTime * movementSpeed * move);
+        controller.Move(Time.deltaTime * movementSpeed);
         controller.enabled = false;
-
-        float rotationOnZ = 2 * Mathf.Pow(movementSpeed, 2) * 360 * -input.x;
-        if (Mathf.Abs(rotationOnZ) > 50) rotationOnZ = 50 * -input.x;
-        if (Rotation) transform.rotation = Quaternion.Euler(lockPos, lockPos, rotationOnZ);
 
         // Player can't leave camera view
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay/2 - scaler.BorderSizeRight);
         pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay/2, maxDisplayHeightAtGameplay/2);
         transform.position = pos;
-
+        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 35 * movementSpeed.x / defSpeed *-1);
         //FuelConsumption takes effect when time has passed
         if (timeForFuelLoss <= Time.time)
         {
@@ -91,6 +85,16 @@ public class PlayerBehaviourScript : MonoBehaviour
         if (currentHealth <= 0)
         {
             SceneManager.LoadScene("GameOverScreen");
+        }
+
+        if(speedAdjustTimer + speedAdjustTimerChange < timer)
+        {
+            timer = 0;
+
+            float dir = input.x == 0 ? (movementSpeed.x > 0 ? -0.5f : 0.5f) : input.x;
+            movementSpeed.x = Mathf.Clamp(movementSpeed.x + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
+            dir = input.y == 0 ? (movementSpeed.z > 0 ? -0.5f : 0.5f) : input.y;
+            movementSpeed.z = Mathf.Clamp(movementSpeed.z + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
         }
     }
 
@@ -140,22 +144,22 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     public void reduceSpeed()
     {
-        float diff = movementSpeed / 5 * -1;
-        movementSpeed += diff;
-        StartCoroutine(resetSpeed(5, diff));
+        defSpeedChange += -6;
+        speedAdjustTimerChange += 0.001f;
+        StartCoroutine(resetSpeed(4, 0.001f, -6));
     }
 
     public void increaseSpeed()
     {
-        float diff = defSpeed * 2/3;
-        movementSpeed += diff;
-        StartCoroutine(resetSpeed(5, diff));
+        defSpeedChange += 20;
+        speedAdjustTimerChange += -0.005f;
+        StartCoroutine(resetSpeed(4, -0.005f, 20));
     }
 
-    public IEnumerator resetSpeed(float timeInSec, float diff)
+    public IEnumerator resetSpeed(float timeInSec, float diff, float diff2)
     {
         yield return new WaitForSeconds(timeInSec);
-        diff *= -1;
-        movementSpeed += diff;
+        speedAdjustTimerChange += diff*-1;
+        defSpeedChange += diff2 * -1;
     }
 }

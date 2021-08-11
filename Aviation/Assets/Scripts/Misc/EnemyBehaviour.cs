@@ -155,9 +155,8 @@ public class EnemyBehaviour : MonoBehaviour
         rb.velocity = new Vector3(speedOnX, 0, smooth(rb.velocity.z, speedOnZ));
 
                         //function that returns 0-1 based on the distance to the player 
-        float rotationOnZ = 3 * Mathf.Pow((distanceX / maxDisplayWidthAtGameplay), 2) * 360 * (clostestOnX == 0 ? -getDirectionOnX() : (clostestOnX < transform.position.x ? -1 : 1));
-        if (Mathf.Abs(rotationOnZ) > 45) rotationOnZ = 45 * (clostestOnX == 0 ? -getDirectionOnX() : (clostestOnX < transform.position.x ? -1 : 1));
-        if (enableRotationOnMove && !disableRotation) transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, smooth(transform.rotation.eulerAngles.z - 360, rotationOnZ));
+        float rotationOnZ = speedOnX/ (speed / 100) * -35;
+        if (enableRotationOnMove && !disableRotation) transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotationOnZ);
     }
 
     private float smooth(float current, float toSet)
