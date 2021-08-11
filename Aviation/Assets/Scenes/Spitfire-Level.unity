@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 437710565}
   - component: {fileID: 437710568}
   - component: {fileID: 437710569}
+  - component: {fileID: 437710570}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -923,6 +924,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b19bc4b4b35497640832528c4a941776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &437710570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437710564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5addbb1587eced6469d3c88fdeeb9674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &485331244
@@ -3236,7 +3249,7 @@ MonoBehaviour:
   cloud: {fileID: 4456316786359694130, guid: 69623e837981ac24195c985dc4a2147d, type: 3}
   booster: {fileID: 2015624762750917783, guid: 9fc48cf89613bb44dba8293fe339c890, type: 3}
   spawnRatePercentage: 70
-  interval: 4.5
+  interval: 7
 --- !u!114 &1836102039
 MonoBehaviour:
   m_ObjectHideFlags: 0

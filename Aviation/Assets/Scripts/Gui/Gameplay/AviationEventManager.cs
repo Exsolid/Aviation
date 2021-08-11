@@ -89,4 +89,16 @@ public class AviationEventManager
             onBooster();
         }
     }
+
+    public void reset()
+    {
+        onBirdKill = null;
+        onEnemyKill = null;
+        onItemPickup = null;
+        onEnemySpawn = null;
+
+        onCloudEnter = null;
+        onCloudExit = null;
+        onBooster = null;
+}
 }

@@ -7,7 +7,7 @@ public class WinningScreen : MonoBehaviour
 {
     public void PlayAgain()
     {
-        SceneManager.LoadScene("Spitfire-Level");
+        SceneManager.LoadScene("Spitfire-Level", LoadSceneMode.Single);
     }
 
     public void BackToMenu()

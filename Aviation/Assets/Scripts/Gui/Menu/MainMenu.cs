@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Muss mit Buildindex angepasst werden. Alternativ LoadScene("*Scenename*");
-        SceneManager.LoadScene("Spitfire-Level");
+        SceneManager.LoadScene("Spitfire-Level", LoadSceneMode.Single);
     }
 
     public void GoToSettingsMenu()

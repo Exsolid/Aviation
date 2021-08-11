@@ -30,10 +30,8 @@ public class CloudSpawning : MonoBehaviour
     {
         timer += Time.deltaTime;
         int per = Random.Range(0, 100);
-        Debug.Log(per);
         if (timer > interval && per >= spawnRatePercentage)
         {
-            Debug.Log(per);
             gameObjects.AddRange(collSpawner.Spawned);
             GameObject toSpawn = null;
             int itemPer = Random.Range(0, 100);
@@ -56,7 +54,7 @@ public class CloudSpawning : MonoBehaviour
         }
         if (cloud != null)
         {
-            GameObject objCloud = GameObject.Instantiate(cloud, pos, Quaternion.Euler(0, 90, 0));
+            GameObject objCloud = GameObject.Instantiate(cloud, pos + Vector3.up *2, Quaternion.Euler(0, 90, 0));
             StaticObjectBehaviour movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * -1;
             Scaler scl = objCloud.AddComponent<Scaler>();

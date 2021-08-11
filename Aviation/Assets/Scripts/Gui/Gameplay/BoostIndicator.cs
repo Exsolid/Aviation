@@ -53,6 +53,6 @@ public class BoostIndicator : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         blink = false;
-        gameObject.GetComponent<Image>().enabled = true;
+        if(gameObject != null) gameObject.GetComponent<Image>().enabled = true;
     }
 }
