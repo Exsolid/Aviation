@@ -15,7 +15,6 @@ public class SceneChanger : MonoBehaviour
     private void countItem(int id)
     {
         ids.Add(id);
-        Debug.Log(ids.Count);
         if (ids.Count >= 5)
         {
             AviationEventManager.Instance.Win();
