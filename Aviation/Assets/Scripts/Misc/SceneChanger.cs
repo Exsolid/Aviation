@@ -18,7 +18,6 @@ public class SceneChanger : MonoBehaviour
         if (ids.Count >= 5)
         {
             AviationEventManagerGui.Instance.Win();
-            SceneManager.LoadScene("WinningScreen");
         }
     }
 }

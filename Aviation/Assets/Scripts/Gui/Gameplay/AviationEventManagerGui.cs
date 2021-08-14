@@ -19,6 +19,7 @@ public class AviationEventManagerGui : MonoBehaviour
     public event Action onBooster;
 
     public event Action onWin;
+    public event Action onGameOver;
 
     private HashSet<int> killed;
     public AviationEventManagerGui()
@@ -42,7 +43,6 @@ public class AviationEventManagerGui : MonoBehaviour
         if (LayerMask.LayerToName(ori.layer).Equals("Player") && collisionObj.tag.Equals("Birb")) BirdKill(collisionObj);
         else if (LayerMask.LayerToName(ori.layer).Equals("Enemy") && ori.gameObject.GetComponent<EnemyBehaviour>() != null)
         {
-            Debug.Log(ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth);
             if (ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0) EnemyKill(ori);
         }
         else if (ori.tag.Equals("Collectable") && collisionObj.tag.Equals("Player")) ItemPickup(ori);
@@ -126,6 +126,13 @@ public class AviationEventManagerGui : MonoBehaviour
         if (onWin != null)
         {
             onWin();
+        }
+    }
+    public void GameOver()
+    {
+        if (onGameOver != null)
+        {
+            onGameOver();
         }
     }
 }

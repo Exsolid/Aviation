@@ -57,7 +57,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         scaler = gameObject.GetComponent<Scaler>();
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
-        TakeDamage(2);
     }
 
     // Update is called once per frame
@@ -86,7 +85,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            SceneManager.LoadScene("GameOverScreen");
+            AviationEventManagerGui.Instance.GameOver();
         }
 
         if(speedAdjustTimer + speedAdjustTimerChange < timer)

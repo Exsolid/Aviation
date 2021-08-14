@@ -54,7 +54,7 @@ public class CloudSpawning : MonoBehaviour
         }
         if (cloud != null)
         {
-            GameObject objCloud = GameObject.Instantiate(cloud, pos + Vector3.up *2, Quaternion.Euler(0, Random.Range(0,90), 0));
+            GameObject objCloud = GameObject.Instantiate(cloud, pos + Vector3.up *2, Quaternion.Euler(0, Random.Range(0, 180), 0));
             StaticObjectBehaviour movement = objCloud.GetComponent<StaticObjectBehaviour>();
             movement.Speed = Mathf.Abs(movement.Speed) * -1;
             Scaler scl = objCloud.AddComponent<Scaler>();

@@ -54,7 +54,7 @@ public class CollectableSpawner : MonoBehaviour
     private void spawnObject()
     {
         Vector3 pos = new Vector3(Random.Range(- maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight), 0, maxDisplayHeightAtGameplay/2 +4);
-        GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, Random.Range(0, 90), 0));
+        GameObject obj = GameObject.Instantiate(objectsToSpawn[counter], pos, Quaternion.Euler(0, Random.Range(0, 180), 0));
         StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
         movement.Speed = Mathf.Abs(movement.Speed) * -1;
         Scaler scl = obj.AddComponent<Scaler>();
