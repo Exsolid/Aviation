@@ -26,12 +26,13 @@ public class StaticObjectBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
+        if ((!gameObject.tag.Equals("Collectable") && !gameObject.tag.Equals("StatusChanger")) || (gameObject.tag.Equals("Collectable") && collision.gameObject.tag.Equals("Player"))) Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
         if ((!gameObject.tag.Equals("Collectable") && !gameObject.tag.Equals("StatusChanger")) || (gameObject.tag.Equals("Collectable") && collision.gameObject.tag.Equals("Player"))) Destroy(gameObject);
-
     }
 }

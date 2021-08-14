@@ -134,7 +134,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.tag.Equals("Collectable"))
+        if (!collision.gameObject.tag.Equals("Collectable") && !collision.gameObject.tag.Equals("StatusChanger"))
         {
             AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
             TakeDamage(2);
@@ -144,7 +144,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (!collision.gameObject.tag.Equals("Collectable"))
+        if (!collision.gameObject.tag.Equals("Collectable") && !collision.gameObject.tag.Equals("StatusChanger"))
         {
             AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
             TakeDamage(2);

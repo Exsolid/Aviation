@@ -4,10 +4,10 @@ using System;
 using UnityEngine;
 using AudioBuddyTool;
 
-public class AviationEventManagerGui
+public class AviationEventManagerGui : MonoBehaviour
 {
     private static AviationEventManagerGui instance;
-    public static AviationEventManagerGui Instance { get { if (instance == null) instance = new AviationEventManagerGui(); return instance; } }
+    public static AviationEventManagerGui Instance { get { return instance; } }
 
     public event Action onBirdKill;
     public event Action onEnemyKill;
@@ -20,23 +20,39 @@ public class AviationEventManagerGui
 
     public event Action onWin;
 
+    private HashSet<int> killed;
     public AviationEventManagerGui()
     {
+        killed = new HashSet<int>();
+    }
+
+    public void Awake()
+    {
+        reset();
+        instance = this;
+    }
+
+    private void FixedUpdate()
+    {
+        killed.Clear();
     }
 
     public void onCollision(GameObject ori, GameObject collisionObj)
     {
         if (LayerMask.LayerToName(ori.layer).Equals("Player") && collisionObj.tag.Equals("Birb")) BirdKill(collisionObj);
-        else if (LayerMask.LayerToName(collisionObj.layer).Equals("Enemy") && collisionObj.gameObject.GetComponent<EnemyBehaviour>() != null && collisionObj.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0)
+        else if (LayerMask.LayerToName(ori.layer).Equals("Enemy") && ori.gameObject.GetComponent<EnemyBehaviour>() != null)
         {
-            EnemyKill(collisionObj);
+            Debug.Log(ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth);
+            if (ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0) EnemyKill(ori);
         }
         else if (ori.tag.Equals("Collectable") && collisionObj.tag.Equals("Player")) ItemPickup(ori);
+
+        killed.Add(ori.GetInstanceID());
     }
 
     private void BirdKill(GameObject obj)
     {
-        if(onBirdKill != null && obj != null)
+        if (onBirdKill != null && obj != null)
         {
             onBirdKill();
         }
@@ -44,8 +60,9 @@ public class AviationEventManagerGui
 
     private void EnemyKill(GameObject obj)
     {
-        if (onEnemyKill != null && obj != null)
+        if (onEnemyKill != null && obj != null && !killed.Contains(obj.GetInstanceID()))
         {
+            killed.Add(obj.GetInstanceID());
             onEnemyKill();
         }
     }
@@ -54,7 +71,6 @@ public class AviationEventManagerGui
     {
         if (onItemPickup != null && obj != null)
         {
-            AudioBuddy.Play("einsammeln_5", Options.Instance.EffectVolume);
             onItemPickup(obj.GetComponent<ItemID>().id);
         }
     }

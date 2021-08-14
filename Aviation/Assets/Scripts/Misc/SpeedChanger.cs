@@ -13,7 +13,7 @@ public class SpeedChanger : MonoBehaviour
             PlayerBehaviourScript scp = other.GetComponent<PlayerBehaviourScript>();
             if (negativ)
             {
-                AviationEventManagerGui.Instance.CloudEnter();
+                if(!deleteOnTouch) AviationEventManagerGui.Instance.CloudEnter();
                 scp.reduceSpeed();
             }
             else
@@ -26,7 +26,7 @@ public class SpeedChanger : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !deleteOnTouch)
         {
             AviationEventManagerGui.Instance.CloudExit();
         }

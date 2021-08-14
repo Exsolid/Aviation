@@ -7,6 +7,5 @@ public class ResetEvents : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        AviationEventManagerGui.Instance.reset();
     }
 }

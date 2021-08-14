@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 437710570}
   - component: {fileID: 437710569}
   - component: {fileID: 437710571}
+  - component: {fileID: 437710572}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -956,6 +957,18 @@ MonoBehaviour:
   uiEnemyKill: {fileID: 485331244}
   enemyKillScaling: 0.3
   birbKillScaling: 0.1
+--- !u!114 &437710572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437710564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713ce2eb4c7f98b4295966da9fea6665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &485331244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3256,7 +3269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHidden: 0
-  cloud: {fileID: 4456316786359694130, guid: 69623e837981ac24195c985dc4a2147d, type: 3}
+  cloud: {fileID: 6577921945137477116, guid: dfe46d07e2d5d5c458b708443a1ab01f, type: 3}
   objectsToSpawn:
   - {fileID: 7576156975960668320, guid: 98f0b54790e1f8648b840f355cd7421a, type: 3}
   - {fileID: 6151952602439587782, guid: dceb83d4044cbdf4f97d0abb04d00150, type: 3}
@@ -3277,7 +3290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1eda12439a45204aa077c98cdbbe514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloud: {fileID: 4456316786359694130, guid: 69623e837981ac24195c985dc4a2147d, type: 3}
+  cloud: {fileID: 6577921945137477116, guid: dfe46d07e2d5d5c458b708443a1ab01f, type: 3}
   booster: {fileID: 2015624762750917783, guid: 9fc48cf89613bb44dba8293fe339c890, type: 3}
   spawnRatePercentage: 70
   interval: 7
