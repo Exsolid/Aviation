@@ -12,6 +12,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField] private Transform gunPosLeft;
     [SerializeField] private Transform gunPosRight;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject smoke;
     public HealthBar healthBar;
     [SerializeField] private PlayerInput playerInput = null;
     [SerializeField] private CharacterController controller = null;
@@ -56,6 +57,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         scaler = gameObject.GetComponent<Scaler>();
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
+        TakeDamage(2);
     }
 
     // Update is called once per frame
@@ -130,6 +132,8 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.reduceHealth(damage);
+        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x*0.8f, gameObject.GetComponent<Collider>().bounds.size.x/2 * 0.8f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z/4), Quaternion.Euler(180,0,0));
+        obj.transform.parent = gameObject.transform;
     }
 
     private void OnCollisionEnter(Collision collision)

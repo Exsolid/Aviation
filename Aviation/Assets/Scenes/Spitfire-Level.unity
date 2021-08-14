@@ -848,6 +848,7 @@ GameObject:
   - component: {fileID: 437710569}
   - component: {fileID: 437710571}
   - component: {fileID: 437710572}
+  - component: {fileID: 437710573}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -967,6 +968,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 713ce2eb4c7f98b4295966da9fea6665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &437710573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437710564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b53bb7648a32f84ebb258aef76f49b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &485331244
@@ -2145,6 +2158,7 @@ MonoBehaviour:
   gunPosRight: {fileID: 2123105179}
   bulletPrefab: {fileID: 713195855296426307, guid: 93e380cf55a3f294498e92d5efc993af,
     type: 3}
+  smoke: {fileID: 5919695364654106502, guid: 160b3699291e88b4eaab6bdb86f62077, type: 3}
   healthBar: {fileID: 406066530}
   playerInput: {fileID: 978693854}
   controller: {fileID: 978693852}
@@ -2216,7 +2230,7 @@ BoxCollider:
   m_GameObject: {fileID: 978693850}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 10.614336, y: 3.3198314, z: 8.832738}
   m_Center: {x: 0.031122208, y: -0.3413942, z: -0.3778863}
