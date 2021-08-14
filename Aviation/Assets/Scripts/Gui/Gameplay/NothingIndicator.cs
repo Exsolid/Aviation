@@ -13,10 +13,10 @@ public class NothingIndicator : MonoBehaviour
     void Start()
     {
         item = false;
-        AviationEventManager.Instance.onCloudEnter += startListen;
-        AviationEventManager.Instance.onCloudExit += stopListen;
-        AviationEventManager.Instance.onBooster += setItem;
-        AviationEventManager.Instance.onItemPickup += setItem;
+        AviationEventManagerGui.Instance.onCloudEnter += startListen;
+        AviationEventManagerGui.Instance.onCloudExit += stopListen;
+        AviationEventManagerGui.Instance.onBooster += setItem;
+        AviationEventManagerGui.Instance.onItemPickup += setItem;
         timer = blinkInterval;
     }
 

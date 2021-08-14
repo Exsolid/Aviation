@@ -40,6 +40,6 @@ public class EnemySpawner : MonoBehaviour
         scl.RightGui = scaler.RightGui;
         scl.Canvas = scaler.Canvas;
         enBe.Player = player;
-        AviationEventManager.Instance.EnemySpawn(obj);
+        AviationEventManagerGui.Instance.EnemySpawn(obj);
     }
 }

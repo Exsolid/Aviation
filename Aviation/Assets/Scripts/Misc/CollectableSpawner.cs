@@ -28,7 +28,7 @@ public class CollectableSpawner : MonoBehaviour
         maxDisplayWidthAtGameplay = maxDisplayHeightAtGameplay * Camera.main.aspect;
         StartCoroutine(setValues());
         scaler = gameObject.GetComponent<Scaler>();
-        AviationEventManager.Instance.onItemPickup += removeFromSpawnedByID;
+        AviationEventManagerGui.Instance.onItemPickup += removeFromSpawnedByID;
         spawned = new List<GameObject>();
     }
 

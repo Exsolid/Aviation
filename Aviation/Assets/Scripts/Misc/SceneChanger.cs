@@ -9,7 +9,7 @@ public class SceneChanger : MonoBehaviour
     void Start()
     {
         ids = new HashSet<int>();
-        AviationEventManager.Instance.onItemPickup += countItem;
+        AviationEventManagerGui.Instance.onItemPickup += countItem;
     }
 
     private void countItem(int id)
@@ -17,7 +17,7 @@ public class SceneChanger : MonoBehaviour
         ids.Add(id);
         if (ids.Count >= 5)
         {
-            AviationEventManager.Instance.Win();
+            AviationEventManagerGui.Instance.Win();
             SceneManager.LoadScene("WinningScreen");
         }
     }

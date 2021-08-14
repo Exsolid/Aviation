@@ -11,9 +11,9 @@ public class BoostIndicator : MonoBehaviour
     [SerializeField] private float blinkInterval;
     void Start()
     {
-        AviationEventManager.Instance.onCloudEnter += startListen;
-        AviationEventManager.Instance.onCloudExit += stopListen;
-        AviationEventManager.Instance.onBooster += indicate;
+        AviationEventManagerGui.Instance.onCloudEnter += startListen;
+        AviationEventManagerGui.Instance.onCloudExit += stopListen;
+        AviationEventManagerGui.Instance.onBooster += indicate;
         timer = blinkInterval;
     }
 

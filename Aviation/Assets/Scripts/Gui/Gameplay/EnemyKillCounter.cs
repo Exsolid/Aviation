@@ -11,7 +11,7 @@ public class EnemyKillCounter : MonoBehaviour
     void Start()
     {
         count = 0;
-        AviationEventManager.Instance.onEnemyKill += updateGui;
+        AviationEventManagerGui.Instance.onEnemyKill += updateGui;
     }
 
     private void updateGui()

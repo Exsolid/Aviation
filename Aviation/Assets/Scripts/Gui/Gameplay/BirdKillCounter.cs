@@ -11,7 +11,7 @@ public class BirdKillCounter : MonoBehaviour
     void Start()
     {
         count = 0;
-        AviationEventManager.Instance.onBirdKill += updateGui;
+        AviationEventManagerGui.Instance.onBirdKill += updateGui;
     }
 
     private void updateGui()

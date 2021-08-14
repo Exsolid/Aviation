@@ -6,8 +6,7 @@ using UnityEngine.Video;
 
 public class Credits : MonoBehaviour
 {
-    VideoPlayer video;
-    private bool isSpeeding;
+    private VideoPlayer video;
 
     void Awake()
     {

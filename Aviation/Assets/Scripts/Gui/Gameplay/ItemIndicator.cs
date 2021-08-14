@@ -12,9 +12,9 @@ public class ItemIndicator : MonoBehaviour
     [SerializeField] private float blinkInterval;
     void Start()
     {
-        AviationEventManager.Instance.onCloudEnter += startListen;
-        AviationEventManager.Instance.onCloudExit += stopListen;
-        AviationEventManager.Instance.onItemPickup += indicate;
+        AviationEventManagerGui.Instance.onCloudEnter += startListen;
+        AviationEventManagerGui.Instance.onCloudExit += stopListen;
+        AviationEventManagerGui.Instance.onItemPickup += indicate;
         timer = blinkInterval;
         ids = new HashSet<int>();
     }

@@ -11,7 +11,7 @@ public class EnemyIndicator : MonoBehaviour
     [SerializeField]private float blinkInterval;
     void Start()
     {
-        AviationEventManager.Instance.onEnemySpawn += setIndicate;
+        AviationEventManagerGui.Instance.onEnemySpawn += setIndicate;
 
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
         gameObject.GetComponent<SpriteRenderer>().enabled = false;

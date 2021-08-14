@@ -139,7 +139,7 @@ public class PlayerBehaviourScript : MonoBehaviour
             AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
             TakeDamage(2);
         }
-        AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
+        AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -149,7 +149,7 @@ public class PlayerBehaviourScript : MonoBehaviour
             AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
             TakeDamage(2);
         }
-        AviationEventManager.Instance.onCollision(gameObject, collision.gameObject);
+        AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
     }
 
     public void reduceSpeed()

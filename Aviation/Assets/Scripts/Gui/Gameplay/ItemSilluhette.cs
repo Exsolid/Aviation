@@ -11,7 +11,7 @@ public class ItemSilluhette : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AviationEventManager.Instance.onItemPickup += updateGui;
+        AviationEventManagerGui.Instance.onItemPickup += updateGui;
         gameObject.transform.Find("Part").gameObject.SetActive(false);
         gameObject.transform.Find("Sillhuette").gameObject.SetActive(true);
     }

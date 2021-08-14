@@ -15,7 +15,7 @@ public class StarRatingSave : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AviationEventManager.Instance.onWin += saveStars;
+        AviationEventManagerGui.Instance.onWin += saveStars;
     }
 
     public void saveStars()
