@@ -15,5 +15,5 @@ MonoBehaviour:
   Volume: 0.67
   Pitch: 1
   File: {fileID: 8300000, guid: 85700f5f8de86a741b7e88affb51f87a, type: 3}
-  IsLoop: 0
+  IsLoop: 1
   CustomName: 0
