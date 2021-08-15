@@ -31,6 +31,9 @@ public class EnemyBehaviour : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
+    private bool crashing;
+    private int randomDir;
+
     [SerializeField] private float durationOfStay;
     private bool flyAway;
     public GameObject Player
@@ -62,19 +65,27 @@ public class EnemyBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        xDistanceToPlayer = player.transform.position.x - transform.position.x;
-        zDistanceToPlayer = player.transform.position.z - transform.position.z;
-        //Creates a raycast (detecting line) that fills 'hit' if it collides with a collider
-        Physics.Raycast(gunPosRight.position, Vector3.forward, out hitRight, maxDisplayHeightAtGameplay);
-        Physics.Raycast(gunPosLeft.position, Vector3.forward, out hitLeft, maxDisplayHeightAtGameplay);
-        countedHits = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(dodgeBoxSize/2, 0, dodgeBoxSize/2), hitsToDodge);
-        shootTimer += Time.deltaTime;
-        shoot();
-        moveBasedOnDistance(xDistanceToPlayer, zDistanceToPlayer, zDistanceToPlayer < 0);
-
-        if (currentHealth <= 0)
+        if (!crashing)
         {
-            Destroy(gameObject);
+            xDistanceToPlayer = player.transform.position.x - transform.position.x;
+            zDistanceToPlayer = player.transform.position.z - transform.position.z;
+            //Creates a raycast (detecting line) that fills 'hit' if it collides with a collider
+            Physics.Raycast(gunPosRight.position, Vector3.forward, out hitRight, maxDisplayHeightAtGameplay);
+            Physics.Raycast(gunPosLeft.position, Vector3.forward, out hitLeft, maxDisplayHeightAtGameplay);
+            countedHits = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(dodgeBoxSize / 2, 0, dodgeBoxSize / 2), hitsToDodge);
+            shootTimer += Time.deltaTime;
+            shoot();
+            moveBasedOnDistance(xDistanceToPlayer, zDistanceToPlayer, zDistanceToPlayer < 0);
+        }
+
+        if (currentHealth <= 0 && !crashing)
+        {
+            crashing = true;
+            StartCoroutine(crash());
+        }
+        if (crashing)
+        {
+            rb.velocity = new Vector3(speed / 200f * randomDir, 0, rb.velocity.z);
         }
     }
 
@@ -198,5 +209,21 @@ public class EnemyBehaviour : MonoBehaviour
             TakeDamage(2);
         }
         AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
+    }
+
+    IEnumerator crash()
+    {
+        System.Random rand = new System.Random();
+        randomDir = rand.NextDouble() >= 0.5 ? -1 : 1;
+        float randomRotation = -500* randomDir;
+        float invertedI = 0;
+        for (float i = gameObject.transform.localScale.x; i >= 0; i -= Time.deltaTime/2)
+        {
+            invertedI += Time.deltaTime / 2;
+            gameObject.transform.localScale = new Vector3(i, i, i);
+            gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x + randomRotation * invertedI, gameObject.transform.rotation.y, gameObject.transform.rotation.z+ randomRotation * invertedI);
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
