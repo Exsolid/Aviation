@@ -8,6 +8,7 @@ public class GotoMainMenu : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData data)
     {
+        AviationEventManagerMenu.Instance.reset();
         SceneManager.LoadScene("MenuMain");
     }
 }

@@ -32,4 +32,10 @@ public class AviationEventManagerMenu
             onPrevScreen();
         }
     }
+    public void reset()
+    {
+        onCutSceneEnd = null;
+        onNextScreen = null;
+        onPrevScreen = null;
+    }
 }

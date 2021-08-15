@@ -29,8 +29,8 @@ public class MenuManager  : MonoBehaviour
 
     private void enable()
     {
-        uiElements[index].enabled = true;
         index = 0;
+        uiElements[index].enabled = true;
 
         buttonBar.SetActive(true);
     }
