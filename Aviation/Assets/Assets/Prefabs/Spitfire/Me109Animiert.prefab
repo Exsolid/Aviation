@@ -149,6 +149,11 @@ PrefabInstance:
       propertyPath: m_MaxValue
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1414217742714135529, guid: 24d6f0b9a164b0c498d6be86d531cda3,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1414217742714135530, guid: 24d6f0b9a164b0c498d6be86d531cda3,
         type: 3}
       propertyPath: m_Name

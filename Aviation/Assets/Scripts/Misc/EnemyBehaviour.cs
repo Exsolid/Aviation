@@ -213,6 +213,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator crash()
     {
+        gameObject.GetComponent<Collider>().enabled = false;
         System.Random rand = new System.Random();
         randomDir = rand.NextDouble() >= 0.5 ? -1 : 1;
         float randomRotation = -500* randomDir;

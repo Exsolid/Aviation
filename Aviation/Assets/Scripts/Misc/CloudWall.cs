@@ -15,7 +15,7 @@ public class CloudWall : MonoBehaviour
     void Start()
     {
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        Instantiate(cloudWall, new Vector3(0,5,0), Quaternion.Euler(0, Random.Range(0, 180), 0));
+        Instantiate(cloudWall, new Vector3(0,5,0), Quaternion.Euler(90, Random.Range(0, 180), 0));
         AviationEventManagerGui.Instance.onWin += won;
         AviationEventManagerGui.Instance.onGameOver += lost;
         fadeImage.GetComponent<Image>().color = new Color(0, 0, 0, 255);
@@ -39,7 +39,7 @@ public class CloudWall : MonoBehaviour
         {
             executed = true;
             Vector3 pos = new Vector3(0, 5, maxDisplayHeightAtGameplay / 2 + cloudWall.GetComponent<Renderer>().bounds.size.x/1.75f);
-            Instantiate(cloudWall, pos, Quaternion.Euler(0, Random.Range(0, 180), 0));
+            Instantiate(cloudWall, pos, Quaternion.Euler(90, Random.Range(0, 180), 0));
             fadeImage.SetActive(true);
             StartCoroutine(startFade(false));
         }

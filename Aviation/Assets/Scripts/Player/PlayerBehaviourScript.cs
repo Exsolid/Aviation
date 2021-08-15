@@ -24,7 +24,6 @@ public class PlayerBehaviourScript : MonoBehaviour
     public int fuel;
     [SerializeField] private float timeBetweenFuelLoss = 3f;
     private float timeForFuelLoss;
-    private Transform cameraTransform;
     [SerializeField] private float defSpeed;
     private float defSpeedChange;
 
@@ -42,9 +41,15 @@ public class PlayerBehaviourScript : MonoBehaviour
     private float speedAdjustTimerChange;
     private float timer;
 
+    private bool crashing;
+    private int randomDir;
+
+    private List<GameObject> smokes;
+
     // Start is called before the first frame update
     void Start()
     {
+        smokes = new List<GameObject>();
         speedAdjustTimer = 0.004f;
         shootTimer = 0;
         playerrb = GetComponent<Rigidbody>();
@@ -52,7 +57,6 @@ public class PlayerBehaviourScript : MonoBehaviour
         currentHealth = maxHealth+ fuel;
         healthBar.SetMaxHealth(fuel+maxHealth);
         timeForFuelLoss = Time.time + timeBetweenFuelLoss;
-        cameraTransform = Camera.main.transform;
         movementSpeed = new Vector3(0,0,0);
         scaler = gameObject.GetComponent<Scaler>();
         maxDisplayHeightAtGameplay = 2.0f * (Mathf.Abs(Camera.main.transform.position.y)) * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
@@ -62,40 +66,46 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        shootTimer += Time.deltaTime;
-        playerInput.actions["Shoot"].performed += _ => Shoot();
-        Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
-        controller.enabled = true;
-        controller.Move(Time.deltaTime * movementSpeed);
-        controller.enabled = false;
-
-        // Player can't leave camera view
-        Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, - maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay/2 - scaler.BorderSizeRight);
-        pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay/2, maxDisplayHeightAtGameplay/2);
-        transform.position = pos;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 35 * movementSpeed.x / defSpeed *-1);
-        //FuelConsumption takes effect when time has passed
-        if (timeForFuelLoss <= Time.time)
+        if (!crashing)
         {
-            FuelConsumption(1f);
-            timeForFuelLoss = Time.time + timeBetweenFuelLoss;
+            timer += Time.deltaTime;
+            shootTimer += Time.deltaTime;
+            playerInput.actions["Shoot"].performed += _ => Shoot();
+            Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
+            controller.enabled = true;
+            controller.Move(Time.deltaTime * movementSpeed);
+            controller.enabled = false;
+
+            // Player can't leave camera view
+            Vector3 pos = transform.position;
+            pos.x = Mathf.Clamp(pos.x, -maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight);
+            pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay / 2, maxDisplayHeightAtGameplay / 2);
+            transform.position = pos;
+            transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 35 * movementSpeed.x / defSpeed * -1);
+
+            //FuelConsumption takes effect when time has passed
+            if (timeForFuelLoss <= Time.time)
+            {
+                FuelConsumption(1f);
+                timeForFuelLoss = Time.time + timeBetweenFuelLoss;
+            }
+            if (speedAdjustTimer + speedAdjustTimerChange < timer)
+            {
+                timer = 0;
+
+                float dir = input.x == 0 ? (movementSpeed.x > 0 ? -0.5f : 0.5f) : input.x;
+                movementSpeed.x = Mathf.Clamp(movementSpeed.x + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
+                dir = input.y == 0 ? (movementSpeed.z > 0 ? -0.5f : 0.5f) : input.y;
+                movementSpeed.z = Mathf.Clamp(movementSpeed.z + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
+            }
+
         }
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !crashing)
         {
             AviationEventManagerGui.Instance.GameOver();
-        }
-
-        if(speedAdjustTimer + speedAdjustTimerChange < timer)
-        {
-            timer = 0;
-
-            float dir = input.x == 0 ? (movementSpeed.x > 0 ? -0.5f : 0.5f) : input.x;
-            movementSpeed.x = Mathf.Clamp(movementSpeed.x + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
-            dir = input.y == 0 ? (movementSpeed.z > 0 ? -0.5f : 0.5f) : input.y;
-            movementSpeed.z = Mathf.Clamp(movementSpeed.z + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
+            crashing = true;
+            StartCoroutine(crash());
         }
     }
 
@@ -133,6 +143,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         healthBar.reduceHealth(damage);
         GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x*0.8f, gameObject.GetComponent<Collider>().bounds.size.x/2 * 0.5f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z/4), Quaternion.Euler(180,0,0));
         obj.transform.parent = gameObject.transform;
+        smokes.Add(obj);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -174,5 +185,26 @@ public class PlayerBehaviourScript : MonoBehaviour
         yield return new WaitForSeconds(timeInSec);
         speedAdjustTimerChange += diff*-1;
         defSpeedChange += diff2 * -1;
+    }
+
+    IEnumerator crash()
+    {
+        gameObject.GetComponent<Collider>().enabled = false;
+        System.Random rand = new System.Random();
+        randomDir = rand.NextDouble() >= 0.5 ? -1 : 1;
+        float randomRotation = -500 * randomDir;
+        float invertedI = 0;
+        for (float i = gameObject.transform.localScale.x; i >= 0; i -= Time.deltaTime / 2)
+        {
+            foreach (GameObject obj in smokes)
+            {
+                var main = obj.GetComponent<ParticleSystem>().main;
+                main.startSize = main.startSize.constant * i / gameObject.transform.localScale.x;
+            }
+            invertedI += Time.deltaTime / 2;
+            gameObject.transform.localScale = new Vector3(i, i, i);
+            gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x + randomRotation * invertedI, gameObject.transform.rotation.y, gameObject.transform.rotation.z + randomRotation * invertedI);
+            yield return null;
+        }
     }
 }
