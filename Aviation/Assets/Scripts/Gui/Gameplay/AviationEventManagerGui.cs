@@ -41,6 +41,7 @@ public class AviationEventManagerGui : MonoBehaviour
     public void onCollision(GameObject ori, GameObject collisionObj)
     {
         if (LayerMask.LayerToName(ori.layer).Equals("Player") && collisionObj.tag.Equals("Birb")) BirdKill(collisionObj);
+        else if(collisionObj.tag.Equals("Birb")) AudioBuddy.Play("Bird_Flamingos_05", Options.Instance.EffectVolume);
         else if (LayerMask.LayerToName(ori.layer).Equals("Enemy") && ori.gameObject.GetComponent<EnemyBehaviour>() != null)
         {
             if (ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0) EnemyKill(ori);
@@ -54,6 +55,7 @@ public class AviationEventManagerGui : MonoBehaviour
     {
         if (onBirdKill != null && obj != null)
         {
+            AudioBuddy.Play("Bird_Flamingos_05", Options.Instance.EffectVolume);
             onBirdKill();
         }
     }

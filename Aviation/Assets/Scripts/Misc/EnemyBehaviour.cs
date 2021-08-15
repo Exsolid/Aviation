@@ -184,7 +184,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (!collision.gameObject.tag.Equals("Collectable") && !collision.gameObject.tag.Equals("StatusChanger"))
         {
-            AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
+            if (collision.gameObject.tag != "Birb") AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
             TakeDamage(2);
         }
         AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
@@ -194,7 +194,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (!collision.gameObject.tag.Equals("Collectable") && !collision.gameObject.tag.Equals("StatusChanger"))
         {
-            AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
+            if (collision.gameObject.tag != "Birb") AudioBuddy.Play("metal_hit", Options.Instance.EffectVolume);
             TakeDamage(2);
         }
         AviationEventManagerGui.Instance.onCollision(gameObject, collision.gameObject);
