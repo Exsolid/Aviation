@@ -121,6 +121,7 @@ public class AviationEventManagerGui : MonoBehaviour
         onCloudExit = null;
         onBooster = null;
         onWin = null;
+        onGameOver = null;
     }
 
     public void Win()
