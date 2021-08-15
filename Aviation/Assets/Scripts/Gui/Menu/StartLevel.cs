@@ -14,6 +14,7 @@ public class StartLevel : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData data)
     {
+        AviationEventManagerMenu.Instance.reset();
         switch (index)
         {
             case 0:
