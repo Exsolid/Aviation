@@ -30,6 +30,8 @@ public class EnemyBehaviour : MonoBehaviour
     public HealthBar healthBar;
     public int maxHealth;
     public int currentHealth;
+    [SerializeField] private GameObject smoke;
+    private List<GameObject> smokes;
 
     private bool crashing;
     private int randomDir;
@@ -49,6 +51,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
+        smokes = new List<GameObject>();
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         speed = Mathf.Abs(speed);
         //Get height and width of the gameplay area (camera view bounds at depth)
@@ -189,6 +192,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.reduceHealth(damage);
+        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x / 2.75f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z / 4), Quaternion.Euler(180, 0, 0));
+        obj.transform.parent = gameObject.transform;
+        smokes.Add(obj);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -220,11 +226,17 @@ public class EnemyBehaviour : MonoBehaviour
         float invertedI = 0;
         for (float i = gameObject.transform.localScale.x; i >= 0; i -= Time.deltaTime/2)
         {
+            foreach (GameObject obj in smokes)
+            {
+                var main = obj.GetComponent<ParticleSystem>().main;
+                main.startSize = main.startSize.constant * i / gameObject.transform.localScale.x;
+            }
             invertedI += Time.deltaTime / 2;
             gameObject.transform.localScale = new Vector3(i, i, i);
             gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x + randomRotation * invertedI, gameObject.transform.rotation.y, gameObject.transform.rotation.z+ randomRotation * invertedI);
             yield return null;
         }
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
 }

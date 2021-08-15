@@ -76,19 +76,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &7268566796220199555
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7944032948346142303}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 13.816775, y: 4.8869553, z: 11.649003}
-  m_Center: {x: -0.044688582, y: -0.5318297, z: -1.2335336}
 --- !u!65 &7410994772265465773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,6 +113,7 @@ MonoBehaviour:
   healthBar: {fileID: 3276653160710925172}
   maxHealth: 10
   currentHealth: 0
+  smoke: {fileID: 5919695364654106502, guid: 160b3699291e88b4eaab6bdb86f62077, type: 3}
   durationOfStay: 8
 --- !u!1001 &4528735817087840268
 PrefabInstance:
