@@ -45,6 +45,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             GameObject obj = GameObject.Instantiate(objectToSpawn, pos, Quaternion.Euler(0, invertTriangleSpawn ? 180 : 0, 0));
             StaticObjectBehaviour movement = obj.GetComponent<StaticObjectBehaviour>();
+            Scaler scl = obj.AddComponent<Scaler>();
+            scl.RightGui = scaler.RightGui;
+            scl.Canvas = scaler.Canvas;
             if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
             movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
             if (triangleSpawn && !isHidden)
@@ -55,7 +58,7 @@ public class ObjectSpawner : MonoBehaviour
                 movement = obj.GetComponent<StaticObjectBehaviour>();
                 if (fromBehind) obj.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
                 movement.Speed = Mathf.Abs(movement.Speed) * (fromBehind ? 1 : -1);
-                Scaler scl = obj.AddComponent<Scaler>();
+                scl = obj.AddComponent<Scaler>();
                 scl.RightGui = scaler.RightGui;
                 scl.Canvas = scaler.Canvas;
 
