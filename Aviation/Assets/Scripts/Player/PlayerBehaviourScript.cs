@@ -78,8 +78,8 @@ public class PlayerBehaviourScript : MonoBehaviour
 
             // Player can't leave camera view
             Vector3 pos = transform.position;
-            pos.x = Mathf.Clamp(pos.x, -maxDisplayWidthAtGameplay / 2, maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight);
-            pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay / 2, maxDisplayHeightAtGameplay / 2);
+            pos.x = Mathf.Clamp(pos.x, -maxDisplayWidthAtGameplay / 2 , maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight);
+            pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay / 2 + gameObject.GetComponent<Collider>().bounds.size.z, maxDisplayHeightAtGameplay / 2 - gameObject.GetComponent<Collider>().bounds.size.z / 1.75f);
             transform.position = pos;
             transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 35 * movementSpeed.x / defSpeed * -1);
 
