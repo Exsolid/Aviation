@@ -93,7 +93,7 @@ public class PlayerBehaviourScript : MonoBehaviour
             {
                 timer = 0;
 
-                float dir = input.x == 0 ? (movementSpeed.x > 0 ? -0.5f : 0.5f) : input.x;
+                float dir = input.x == 0 ? (movementSpeed.x > 0 ? -0.65f : 0.65f) : input.x;
                 movementSpeed.x = Mathf.Clamp(movementSpeed.x + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
                 dir = input.y == 0 ? (movementSpeed.z > 0 ? -0.5f : 0.5f) : input.y;
                 movementSpeed.z = Mathf.Clamp(movementSpeed.z + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
@@ -141,7 +141,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.reduceHealth(damage);
-        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x/ 2.75f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z/4), Quaternion.Euler(180,0,0));
+        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x/ 2.75f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z/4.5f), Quaternion.Euler(180,0,0));
         obj.transform.parent = gameObject.transform;
         smokes.Add(obj);
     }

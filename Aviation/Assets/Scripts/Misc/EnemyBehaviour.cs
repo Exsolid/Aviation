@@ -192,7 +192,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.reduceHealth(damage);
-        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x / 2.75f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z / 4), Quaternion.Euler(180, 0, 0));
+        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x / 2.75f), transform.position.y - gameObject.GetComponent<Collider>().bounds.size.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z / 4.5f), Quaternion.Euler(180, 0, 0));
         obj.transform.parent = gameObject.transform;
         smokes.Add(obj);
     }
