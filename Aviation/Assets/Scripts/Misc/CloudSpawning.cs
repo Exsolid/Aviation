@@ -40,6 +40,9 @@ public class CloudSpawning : MonoBehaviour
             spawnObject(toSpawn);
             timer = 0;
             gameObjects.Clear();
+        }else if(timer > interval)
+        {
+            timer = 0;
         }
     }
 

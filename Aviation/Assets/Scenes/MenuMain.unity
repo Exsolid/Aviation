@@ -478,7 +478,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 186957903}
-        m_TargetAssemblyTypeName: ChangeSound, Assembly-CSharp
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: change
         m_Mode: 1
         m_Arguments:

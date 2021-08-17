@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData data)
     {
+        change();
         AudioBuddy.Play("button_2", Options.Instance.EffectVolume);
         if (!key.Equals("Aviation_EffectVolume"))
         {
