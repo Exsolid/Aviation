@@ -40,15 +40,14 @@ public class AviationEventManagerGui : MonoBehaviour
 
     public void onCollision(GameObject ori, GameObject collisionObj)
     {
+        Debug.Log(LayerMask.LayerToName(ori.layer));
         if (LayerMask.LayerToName(ori.layer).Equals("Player") && collisionObj.tag.Equals("Birb")) BirdKill(collisionObj);
-        else if(collisionObj.tag.Equals("Birb")) AudioBuddy.Play("Bird_Flamingos_05", Options.Instance.EffectVolume);
-        else if (LayerMask.LayerToName(ori.layer).Equals("Enemy") && ori.gameObject.GetComponent<EnemyBehaviour>() != null)
+        else if (collisionObj.tag.Equals("Birb")) AudioBuddy.Play("Bird_Flamingos_05", Options.Instance.EffectVolume);
+        else if (LayerMask.LayerToName(ori.layer).Equals("Enemy") && ori.gameObject.GetComponent<EnemyBehaviour>() != null && ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0)
         {
-            if (ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0) EnemyKill(ori);
+            EnemyKill(ori);
         }
         else if (ori.tag.Equals("Collectable") && collisionObj.tag.Equals("Player")) ItemPickup(ori);
-
-        killed.Add(ori.GetInstanceID());
     }
 
     private void BirdKill(GameObject obj)
@@ -122,6 +121,7 @@ public class AviationEventManagerGui : MonoBehaviour
         onBooster = null;
         onWin = null;
         onGameOver = null;
+        if (killed != null) killed.Clear();
     }
 
     public void Win()
