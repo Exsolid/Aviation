@@ -171,6 +171,7 @@ public class EnemyBehaviour : MonoBehaviour
                         //function that returns 0-1 based on the distance to the player 
         float rotationOnZ = speedOnX/ (speed / 100) * -35;
         if (enableRotationOnMove && !disableRotation) transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotationOnZ);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     private float smooth(float current, float toSet)

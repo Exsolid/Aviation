@@ -78,6 +78,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
             // Player can't leave camera view
             Vector3 pos = transform.position;
+            pos.y = 0;
             pos.x = Mathf.Clamp(pos.x, -maxDisplayWidthAtGameplay / 2 , maxDisplayWidthAtGameplay / 2 - scaler.BorderSizeRight);
             pos.z = Mathf.Clamp(pos.z, -maxDisplayHeightAtGameplay / 2 + gameObject.GetComponent<Collider>().bounds.size.z, maxDisplayHeightAtGameplay / 2 - gameObject.GetComponent<Collider>().bounds.size.z / 1.75f);
             transform.position = pos;
