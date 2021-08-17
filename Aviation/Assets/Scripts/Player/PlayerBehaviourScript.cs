@@ -95,9 +95,9 @@ public class PlayerBehaviourScript : MonoBehaviour
                 timer = 0;
 
                 float dir = input.x == 0 ? (movementSpeed.x > 0 ? -0.65f : 0.65f) : input.x;
-                movementSpeed.x = Mathf.Clamp(movementSpeed.x + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
+                movementSpeed.x = Mathf.Clamp(movementSpeed.x + 1f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
                 dir = input.y == 0 ? (movementSpeed.z > 0 ? -0.5f : 0.5f) : input.y;
-                movementSpeed.z = Mathf.Clamp(movementSpeed.z + 0.5f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
+                movementSpeed.z = Mathf.Clamp(movementSpeed.z + 1f * dir, -defSpeed - defSpeedChange, defSpeed + defSpeedChange);
             }
 
         }
