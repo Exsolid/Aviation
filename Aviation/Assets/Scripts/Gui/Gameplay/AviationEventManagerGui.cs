@@ -22,6 +22,9 @@ public class AviationEventManagerGui : MonoBehaviour
     public event Action onGameOver;
 
     private HashSet<int> killed;
+
+    private bool disableGameOver;
+
     public AviationEventManagerGui()
     {
         killed = new HashSet<int>();
@@ -128,12 +131,13 @@ public class AviationEventManagerGui : MonoBehaviour
     {
         if (onWin != null)
         {
+            disableGameOver = true;
             onWin();
         }
     }
     public void GameOver()
     {
-        if (onGameOver != null)
+        if (onGameOver != null && !disableGameOver)
         {
             onGameOver();
         }
