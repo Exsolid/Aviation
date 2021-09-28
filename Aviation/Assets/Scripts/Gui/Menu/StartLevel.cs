@@ -15,6 +15,7 @@ public class StartLevel : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData data)
     {
         AviationEventManagerMenu.Instance.reset();
+        AviationEventManagerGui.CurrentLevel = index;
         switch (index)
         {
             case 0:
@@ -23,6 +24,7 @@ public class StartLevel : MonoBehaviour, IPointerClickHandler
                 SceneManager.LoadScene("Spitfire-Level");
                 break;
             case 2:
+                SceneManager.LoadScene("Zeppelin-Level");
                 break;
         }
     }

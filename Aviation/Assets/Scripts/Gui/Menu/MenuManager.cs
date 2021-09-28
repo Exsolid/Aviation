@@ -61,7 +61,7 @@ public class MenuManager  : MonoBehaviour
 
     private void updateStartButton() 
     {
-        if (index != 1) startGame.SetActive(false);
+        if (index == 0) startGame.SetActive(false);
         else
         {
             startGame.SetActive(true);

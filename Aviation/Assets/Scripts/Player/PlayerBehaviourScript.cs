@@ -13,6 +13,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField] private Transform gunPosRight;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject smoke;
+    [SerializeField] private bool smokeViaZ;
     public HealthBar healthBar;
     [SerializeField] private PlayerInput playerInput = null;
     [SerializeField] private CharacterController controller = null;
@@ -142,8 +143,10 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.reduceHealth(damage);
-        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x/ 2.75f), transform.position.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z/5f), Quaternion.Euler(180,0,0));
+        Vector3 smokePosAddition = new Vector3((!smokeViaZ ? Random.Range(-gameObject.GetComponent<Collider>().bounds.size.x / 2.75f, gameObject.GetComponent<Collider>().bounds.size.x / 2.75f) : 0),0, (smokeViaZ ? Random.Range(-gameObject.GetComponent<Collider>().bounds.size.z / 2.75f, gameObject.GetComponent<Collider>().bounds.size.z / 2.75f) : 0));
+        GameObject obj = Instantiate(smoke, new Vector3(transform.position.x + smokePosAddition.x, transform.position.y, transform.position.z + gameObject.GetComponent<Collider>().bounds.size.z/5f+ smokePosAddition.z), Quaternion.Euler(180,0,0));
         obj.transform.parent = gameObject.transform;
+        obj.transform.localScale = 1 * Vector3.one;
         smokes.Add(obj);
     }
 

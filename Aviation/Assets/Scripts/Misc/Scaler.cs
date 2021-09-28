@@ -25,7 +25,7 @@ public class Scaler : MonoBehaviour
         {
             xSize = gameObject.GetComponent<Collider>().bounds.size.x / 2 * neededScaling;
         }
-        borderSizeRight = rightGui.GetComponent<RectTransform>().rect.size.x *canvasScale.x + xSize;
+        borderSizeRight = rightGui.GetComponent<RectTransform>().rect.size.x *canvasScale.x ;
 
         gameObject.transform.localScale = gameObject.transform.localScale / neededScaling;
     }

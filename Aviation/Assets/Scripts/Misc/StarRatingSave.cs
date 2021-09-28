@@ -23,8 +23,12 @@ public class StarRatingSave : MonoBehaviour
         PlayerBehaviourScript pbs = player.GetComponent<PlayerBehaviourScript>();
 
         float healthPct = pbs.currentHealth/(pbs.maxHealth * 0.5f);
-        float extra = (birbKillScaling * uiBirbKill.GetComponent<BirdKillCounter>().Count + enemyKillScaling * uiEnemyKill.GetComponent<EnemyKillCounter>().Count)/ (pbs.maxHealth * 1f);
-        if(!PlayerPrefs.HasKey("Aviation_SpitfireStars") || PlayerPrefs.GetInt("Aviation_SpitfireStars") < (int)Math.Ceiling(extra + healthPct)) PlayerPrefs.SetInt("Aviation_SpitfireStars",(int) Math.Ceiling(extra+healthPct));
-        PlayerPrefs.SetInt("Aviation_SpitfireStarsCurrent", (int)Math.Ceiling(extra + healthPct));
+        float extra = AviationEventManagerGui.CurrentLevel == 1
+            ? (birbKillScaling * uiBirbKill.GetComponent<BirdKillCounter>().Count + enemyKillScaling * uiEnemyKill.GetComponent<EnemyKillCounter>().Count)/ (pbs.maxHealth * 1f)
+            : (birbKillScaling * uiBirbKill.GetComponent<BirdKillCounter>().Count) / (pbs.maxHealth * 1f);
+        if (AviationEventManagerGui.CurrentLevel == 1 && (!PlayerPrefs.HasKey("Aviation_SpitfireStars") || PlayerPrefs.GetInt("Aviation_SpitfireStars") < (int)Math.Ceiling(extra + healthPct))) PlayerPrefs.SetInt("Aviation_SpitfireStars",(int) Math.Ceiling(extra+healthPct));
+        if (AviationEventManagerGui.CurrentLevel == 2 && (!PlayerPrefs.HasKey("Aviation_ZeppelinStars") || PlayerPrefs.GetInt("Aviation_ZeppelinStars") < (int)Math.Ceiling(extra + healthPct))) PlayerPrefs.SetInt("Aviation_ZeppelinStars", (int)Math.Ceiling(extra + healthPct));
+        if (AviationEventManagerGui.CurrentLevel == 1) PlayerPrefs.SetInt("Aviation_SpitfireStarsCurrent", (int)Math.Ceiling(extra + healthPct));
+        if (AviationEventManagerGui.CurrentLevel == 2) PlayerPrefs.SetInt("Aviation_ZeppelinStarsCurrent", (int)Math.Ceiling(extra + healthPct));
     }
 }

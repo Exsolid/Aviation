@@ -25,6 +25,9 @@ public class AviationEventManagerGui : MonoBehaviour
 
     private bool disableGameOver;
 
+    private static int currentLevel;
+    public static int CurrentLevel { set { currentLevel = value; } get { return currentLevel; } }
+
     public AviationEventManagerGui()
     {
         killed = new HashSet<int>();
@@ -43,7 +46,6 @@ public class AviationEventManagerGui : MonoBehaviour
 
     public void onCollision(GameObject ori, GameObject collisionObj)
     {
-        Debug.Log(LayerMask.LayerToName(ori.layer));
         if (LayerMask.LayerToName(ori.layer).Equals("Player") && collisionObj.tag.Equals("Birb")) BirdKill(collisionObj);
         else if (collisionObj.tag.Equals("Birb")) AudioBuddy.Play("Bird_Flamingos_05", Options.Instance.EffectVolume);
         else if (LayerMask.LayerToName(ori.layer).Equals("Enemy") && ori.gameObject.GetComponent<EnemyBehaviour>() != null && ori.gameObject.GetComponent<EnemyBehaviour>().currentHealth <= 0)
